@@ -1,0 +1,26 @@
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.suo
+
+# .NET
+bin/
+obj/
+out/
+*.cache
+*.tmp
+
+# React
+node_modules/
+dist/
+dist-ssr/
+
+# System
+.DS_Store
+Thumbs.db
+*.log
+
+# Environment
+.env
+.env.local
