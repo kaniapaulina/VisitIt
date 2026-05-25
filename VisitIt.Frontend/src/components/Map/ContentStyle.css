@@ -1,7 +1,7 @@
-.contentMain {
+.content {
     background-color: palevioletred;
-
-    grid-row: 1;
     width: auto;
     height: 100%;
+    border-radius: 20px;
+    padding: 10px
 }
