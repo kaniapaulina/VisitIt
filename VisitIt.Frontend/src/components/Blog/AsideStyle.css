@@ -1,0 +1,23 @@
+.aside-main {
+    background-color: antiquewhite;
+
+    width: auto;
+    height: 100%;
+    border-radius: 20px;
+    padding: 10px;
+
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #D5E5E5;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E3A77;
+  border-radius: 10px;
+}
