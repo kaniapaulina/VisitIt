@@ -1,9 +1,9 @@
-import Nav from '../components/Sidebar/Nav';
-import Content from '../components/Map/Content';
-import Aside from '../components/Blog/Aside';
+import Nav from '../../components/Sidebar/Nav';
+import Content from '../../components/Map/Content';
+import Aside from '../../components/Blog/Aside';
 import './Home.css';
 
-const Home = () => {
+const UserHome = () => {
   return (
     <div className="dashboard">
         <div className='nav-block'>
@@ -22,4 +22,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default UserHome;
