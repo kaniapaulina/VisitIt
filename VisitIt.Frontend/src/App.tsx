@@ -5,23 +5,38 @@ import './styles/App.css'
 import AdminDashboard from './pages/admin/AdminDashboard';
 import UserHome from './pages/user/UserHome';
 
+// function App() {
+//   return (
+//     <>
+//     <body>
+//       <div className='appMain'>
+//         <BrowserRouter>
+
+//           <Routes>
+//             <Route path="/" element={<Landing />} />
+//             <Route path="/user" element={<UserHome/>}></Route>
+//             <Route path="/admin" element={<AdminDashboard/>}></Route>
+//           </Routes>
+//         </BrowserRouter>
+//       </div>
+      
+//     </body>
+//     </>
+//   )
+// }
+
 function App() {
   return (
-    <>
-    <body>
-      <div className='appMain'>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/user" element={<UserHome/>}></Route>
-            <Route path="/admin" element={<AdminDashboard/>}></Route>
-          </Routes>
-        </BrowserRouter>
-      </div>
-      
-    </body>
-    </>
-  )
+    <div className='appMain'>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/user" element={<UserHome />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;

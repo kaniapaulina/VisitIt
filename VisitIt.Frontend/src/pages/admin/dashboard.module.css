@@ -1,8 +1,10 @@
-.container {
+
+.pageWrapper {
+  width: 100vw;
+  height: 100vh;     
+  overflow-y: auto;   
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background-color: #fff;
 }
 
 .topNavbar {
@@ -11,48 +13,31 @@
   z-index: 1000;
   background: #66c266;
   color: #fff;
-  padding: 8px 2.5vw; 
-  width: 100%;      
+  padding: 8px 2.5vw;
+  flex-shrink: 0; 
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
 }
 
 .dashboardBody {
   display: flex;
   flex-direction: row;
   gap: 20px;
-  flex: 1;
-  padding: 10px 2.5vw; 
+  padding: 10px 2.5vw;
   width: 100%;
-  box-sizing: border-box; 
+  flex: 1;
 }
 
-.managementSection {
-  flex: 1;            
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  height: 100%; 
-  padding: 20px; 
-}
-
-.managementSection h1, .analyticsSection h1 {
-  margin-bottom: 20px; 
-  color: #333;        
-}
-.analyticsSection {
-  flex: 2;             
+.managementSection, .analyticsSection {
   background: #fff;
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 8px;
 }
 
-.pageWrapper {
-  width: 100vw; 
-  max-width: none !important; 
-}
-
-* {
-  box-sizing: border-box;
-}
+.managementSection { flex: 1; }
+.analyticsSection { flex: 2; }
