@@ -1,8 +1,8 @@
 import styles from './dashboard.module.css';
-import UserManagement from '../components/Admin/UserManager';
-import Analytics from '../components/Admin/Analytics';
+import UserManagement from '../../components/Admin/UserManager';
+import Analytics from '../../components/Admin/Analytics';
 
-export default function Dashboard() {
+export default function AdminDashboard() {
   return (
     <div className={styles.pageWrapper}>
       <header className={styles.topNavbar}>
