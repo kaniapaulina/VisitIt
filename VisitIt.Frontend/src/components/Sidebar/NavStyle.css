@@ -6,12 +6,34 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #D5E5E5;
   border-radius: 20px;
 }
 
-.nav-logo {
-  font-size: 1.5rem;
+.nav-header {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-footer {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.home-link {
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.home-link:hover {
+  transform: scale(1.05);
+}
+
+.nav-brand {
+  font-size: 2.2rem;
   font-weight: bold;
   color: #1E3A77;
 }
@@ -21,6 +43,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  margin-bottom: 30px;
 }
 
 .nav-links a {
@@ -44,11 +67,19 @@
 
 .nav-footer {
   padding-top: 1rem;
-  border-top: 2px solid #F7CBCA;
+  border-top: 2px solid #116351;
+  background-color: mintcream;
+  border-radius: 20px;
+}
+
+.nav-profile-link {
+  text-decoration: none;
 }
 
 .user-info {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   gap: 12px;
   padding: 0.5rem;
@@ -58,13 +89,13 @@
 }
 
 .user-info:hover {
-  background-color: #F7CBCA;
+  background-color: #6cb9a2;
 }
 
 .user-avatar {
   width: 40px;
   height: 40px;
-  background-color: #1E3A77;
+  background-color: #116351;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -80,10 +111,31 @@
 
 .user-details strong {
   color: #1E3A77;
-  font-size: 0.9rem;
+  font-size: 1.3rem;
 }
 
 .user-details span {
-  font-size: 0.7rem;
   color: #5D6B6B;
+}
+
+.logout-btn {
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  color: #5D6B6B;
+  font-weight: 500;
+  padding: 5px;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: #6cb9a2;
+}
+
+@media (max-width: 1024px) {
+  .nav-header, .nav-footer {
+    width: 100%;
+    flex-direction: row;
+  }
 }
