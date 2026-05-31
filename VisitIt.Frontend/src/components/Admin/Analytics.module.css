@@ -1,0 +1,30 @@
+.tableSection {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.filterInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dataTable th, .dataTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #fff;
+}
+
+.dataTable th {
+  background-color: #fff;
+}

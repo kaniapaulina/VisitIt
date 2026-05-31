@@ -10,7 +10,6 @@ import './styles/App.css'
 import Home from './pages/Home'
 
 function App() {
-  // Return ONLY the dashboard for now
   return (
     <Dashboard /> 
   )
