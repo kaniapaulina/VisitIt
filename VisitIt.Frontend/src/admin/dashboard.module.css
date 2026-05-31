@@ -48,6 +48,11 @@
   border-radius: 8px;
 }
 
+.pageWrapper {
+  width: 100vw; 
+  max-width: none !important; 
+}
+
 * {
   box-sizing: border-box;
 }
