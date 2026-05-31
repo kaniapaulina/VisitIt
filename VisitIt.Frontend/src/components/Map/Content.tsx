@@ -1,20 +1,94 @@
 import './ContentStyle.css'
-
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+import Globe from 'react-globe.gl';
 
 function Content() {
-    return(
-        <>
+    const globeRef = useRef<any>();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [geojsonData, setGeojsonData] = useState(null);
+    const [dimensions, setDimensions] = useState({ height: 550 });
+
+    useEffect(() => {
+        fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+            .then(res => res.json())
+            .then(data => setGeojsonData(data.features));
+    }, []);
+
+    const handleGlobeReady = useCallback(() => {
+        if (globeRef.current) {
+            globeRef.current.controls().autoRotate = true;
+            globeRef.current.controls().autoRotateSpeed = 0.8;
+            globeRef.current.controls().enableZoom = true;
+            globeRef.current.controls().enablePan = false;
+        }
+    }, []);
+
+    useEffect(() => {
+        const updateDimensions = () => {
+            if (containerRef.current) {
+                const { width, height } = containerRef.current.getBoundingClientRect();
+                setDimensions({ height: height || 550 });
+            }
+        };
+
+        updateDimensions();
+
+        const observer = new ResizeObserver(updateDimensions);
+        if (containerRef.current) observer.observe(containerRef.current);
+
+        return () => observer.disconnect();
+    }, []);
+
+    const visitedCountries = [
+        { lat: 52.5200, lng: 13.4050, label: 'Berlin, Germany', color: '#1E3A77', size: 0.3 },
+        { lat: 48.8566, lng: 2.3522, label: 'Paris, France', color: '#1E3A77', size: 0.3 },
+        { lat: 41.9028, lng: 12.4964, label: 'Rome, Italy', color: '#1E3A77', size: 0.3 }
+    ];
+
+    return (
         <div className="content">
-           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eros ante, convallis quis leo ut, consequat gravida metus. Curabitur ex tortor, scelerisque ac lacus a, malesuada placerat est. Nam semper felis sit amet eleifend sollicitudin. Integer vulputate non dolor quis volutpat. Vestibulum ullamcorper enim dapibus, suscipit lorem a, cursus tortor. Etiam eget accumsan arcu, eget placerat ligula. Proin scelerisque blandit erat, ac feugiat sem cursus et. Curabitur vel sem sed diam dignissim congue. Nunc sit amet commodo lacus. Nulla at eros id diam mollis hendrerit vel in sem. Aliquam ut ligula id velit pulvinar laoreet sit amet at nunc. Phasellus non luctus odio. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            <div
+                ref={containerRef}
+                className='content-map'
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden'
+                }}
+            >
 
-            Aenean et feugiat sem, sit amet auctor lectus. Nunc varius ipsum id nibh maximus, eu facilisis est aliquet. Suspendisse ornare quam non elit mollis condimentum. Nulla consectetur, dui non consequat scelerisque, orci quam auctor sapien, non blandit neque purus eu ante. Pellentesque non ex sed est sodales tempus. Sed massa enim, congue in malesuada at, aliquam et risus. Suspendisse tristique metus et eros vestibulum blandit. Integer viverra, nunc ac molestie imperdiet, est leo dapibus justo, et lacinia orci magna a erat. Fusce condimentum nec tellus eu sagittis. Nulla at ultrices nisl, sit amet convallis velit. Nulla consequat arcu sed diam rutrum, et rhoncus eros commodo.
+                {geojsonData && (
+                    <Globe
+                        ref={globeRef}
+                        width={1000}
+                        height={dimensions.height}
 
-            Donec fermentum ipsum ac enim ultricies ullamcorper. Vestibulum odio nulla, lacinia quis ornare vel, imperdiet in nulla. Aliquam accumsan varius molestie. Sed id nibh sodales, ullamcorper leo et, mattis dolor. Ut eu mauris a mi aliquet euismod. Curabitur aliquet tristique tortor in vehicula. Quisque auctor vehicula nisi, a sollicitudin nunc posuere non. Donec commodo ut dolor id cursus. Proin commodo a mauris eu congue. Donec hendrerit mi eu orci feugiat tempus. In nec lorem ac est ornare posuere sed eget massa.
-           </p>
+                        onGlobeReady={handleGlobeReady}
+                        globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
+                        backgroundColor="white"
+                        
+                        pointsData={visitedCountries}
+                        pointLabel="label"
+                        pointColor="color"
+                        pointRadius="size"
+
+                        pointsTransitionDuration={1000}
+                        
+                        polygonsData={geojsonData}
+                        polygonAltitude={0.01} 
+                        polygonCapColor={() => '#1E3A77'} 
+                        polygonSideColor={() => '#1E3A77}'}
+                        polygonStrokeColor={() => '#FFFFFF'} 
+                        polygonLabel={(d:any) => d.properties?.ADMIN || d.properties?.name || 'Country'}                        
+                        onPolygonClick={(polygon: any, _event, _coords) => {
+                            const countryName = polygon.properties?.ADMIN || polygon.properties?.name;
+                            console.log(`You clicked on: ${countryName}`);
+                        }}
+                    />
+                )}
+            </div>
         </div>
-        </>
-    )
+    );
 }
 
-export default Content
+export default Content;
