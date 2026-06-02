@@ -134,6 +134,7 @@
 }
 
 @media (max-width: 1024px) {
+
   .nav-header, .nav-footer {
     width: 100%;
     flex-direction: row;
