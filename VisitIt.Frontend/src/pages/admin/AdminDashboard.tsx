@@ -1,26 +1,33 @@
 import styles from './dashboard.module.css';
-import UserManagement from '../../components/Admin/UserManager';
-import Analytics from '../../components/Admin/Analytics';
+import { NavLink, Outlet } from 'react-router-dom';
 
 export default function AdminDashboard() {
   return (
     <div className={styles.pageWrapper}>
-      <header className={styles.topNavbar}>
-        <h1>Admin Overview</h1>
-      </header>
-    <div className={styles.container}>
-      <div className={styles.dashboardBody}>
-        <section className={styles.managementSection}>
-          <h1>User Management</h1>
-          <UserManagement />
-        </section>
+      <nav className={styles.sideBar}>
+        <h2>Admin Panel</h2>
+        <div className={styles.navSection}>
+          <span className={styles.navTitle}>Navigation</span>
+          
+          <NavLink to="users" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>
+            User Management
+          </NavLink>
+ 
+          <NavLink to="analytics" className={({ isActive }) => isActive ? `${styles.navItem} ${styles.active}` : styles.navItem}>
+            Analytics
+          </NavLink>
+        </div>
+        <div className={styles.userSection}>
+            <img src="https://d1jyxxz9imt9yb.cloudfront.net/medialib/3078/image/s768x1300/IP202207_GlassFrogs_009_365211_reduced.jpg" alt="User" className={styles.userAvatar} />
+            <span className={styles.userName}>Admin</span>
+         </div>
+      </nav>
 
-        <section className={styles.analyticsSection}>
-          <h1>General Statistics</h1>
-          <Analytics />
-        </section>
-      </div>       
-    </div>
+      <main className={styles.mainContent}>
+        <div className={styles.dashboardBody}>
+          <Outlet />
+        </div>
+      </main>
     </div>
   );
 }

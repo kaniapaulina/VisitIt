@@ -1,58 +1,116 @@
+:root{
+  --bg-color: #e0f4e1;       
+  --sidebar-color: #3f6b4d;  
+  --card-bg: #ffffff;        
+  --text-main: #1a1a1a;
+  --accent-green: #58976a;
+}
+
+.pageWrapper {
+  width: 100vw;
+  height: 100vh;     
+  overflow-y: auto;   
+  display: flex;
+  background-color: var(--bg-color);
+  flex-direction: row;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sideBar{
+  width: 20vw;
+  background: var(--sidebar-color);
+  color: #fff;
+  padding: 40px 1.5vw;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 20px;
+  height: 100vh;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.navTitle {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #aaa; 
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  padding: 2px; 
+}
+
+.navItem {
+  padding: 10px 5px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  transition: background 0.3s;
+  align-items: center;
+  opacity: 0.8;
+  text-decoration: none;
+  color: inherit;
+}
+
+.navItem:hover {
+  background: rgba(181, 255, 172, 0.15); 
+  opacity: 1;}
+
+.navItem:visited, 
+.navItem:active {
+  color: #fff; 
+}
+
+.userSection {
+  margin-top: auto; 
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); 
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; 
+  object-fit: cover;
+}
+
+.userName {
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap; 
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  color: #1a1a1a;
+  padding: 40px;
+  flex-direction: column;
+  overflow-y: auto; 
+}
+
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background-color: #fff;
-}
-
-.topNavbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #66c266;
-  color: #fff;
-  padding: 8px 2.5vw; 
-  width: 100%;      
+  flex: 1; 
 }
 
 .dashboardBody {
   display: flex;
-  flex-direction: row;
-  gap: 20px;
-  flex: 1;
-  padding: 10px 2.5vw; 
-  width: 100%;
-  box-sizing: border-box; 
-}
-
-.managementSection {
-  flex: 1;            
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  display: flex;
   flex-direction: column;
-  height: 100%; 
-  padding: 20px; 
+  gap: 20px;
+  padding: 20px 2.5vw;
+  width: 100%;
+  flex: 1;
 }
 
-.managementSection h1, .analyticsSection h1 {
-  margin-bottom: 20px; 
-  color: #333;        
-}
-.analyticsSection {
-  flex: 2;             
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 8px;
-}
 
-.pageWrapper {
-  width: 100vw; 
-  max-width: none !important; 
-}
 
-* {
-  box-sizing: border-box;
-}
