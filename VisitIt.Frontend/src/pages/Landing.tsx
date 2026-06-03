@@ -12,6 +12,9 @@ const Landing = () => {
           <button onClick={() => navigate('/user')} className="btn-user">
             User
           </button>
+          <button onClick={() => navigate('/user')} className="btn-user">
+            User
+          </button>
           <button onClick={() => navigate('/admin')} className="btn-admin">
             Panel administratora
           </button>

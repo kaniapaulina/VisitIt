@@ -9,9 +9,17 @@
     height: 100%;
     width: auto;
 }
-
-
-/* Force the canvas to stay inside the container */
+ 
 .content-map canvas {
   object-fit: contain;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    height: 100%;
+  }
+
+  .content-map {
+    height: 100%;
+  }
 }

@@ -5,20 +5,27 @@ import Globe from 'react-globe.gl';
 function Content() {
     const globeRef = useRef<any>();
     const containerRef = useRef<HTMLDivElement>(null);
-    const [countries, setCountries] = useState({ features: []});
+    const [polygonFeatures, setPolygonFeatures] = useState<any[]>([]);
     const [dimensions, setDimensions] = useState({ width: 1200, height: 550 });
 
     useEffect(() => {
-      fetch('https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson').then(res => res.json())
-        .then(countries=> {
-          setCountries(countries);
-        });
+        fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson')
+            .then(res => res.json())
+            .then(data => {
+                const features = data.features.filter((d: any) =>
+                    d.geometry?.type === 'Polygon' ||
+                    d.geometry?.type === 'MultiPolygon'
+                );
+                console.log('Valid polygons:', features.length);
+                setPolygonFeatures(features);
+            })
+            .catch(err => console.error('Failed:', err));
     }, []);
 
     const handleGlobeReady = useCallback(() => {
         if (globeRef.current) {
             globeRef.current.controls().autoRotate = true;
-            globeRef.current.controls().autoRotateSpeed = 0.8;
+            globeRef.current.controls().autoRotateSpeed = 0.3;
             globeRef.current.controls().enableZoom = true;
             globeRef.current.controls().enablePan = false;
         }
@@ -32,12 +39,15 @@ function Content() {
             }
         };
 
-        updateDimensions();
+        const timer = setTimeout(updateDimensions, 100);
 
         const observer = new ResizeObserver(updateDimensions);
         if (containerRef.current) observer.observe(containerRef.current);
 
-        return () => observer.disconnect();
+        return () => {
+            clearTimeout(timer);
+            observer.disconnect();
+        };
     }, []);
 
     const visitedCountries = [
@@ -45,6 +55,8 @@ function Content() {
         { lat: 48.8566, lng: 2.3522, label: 'Paris, France', color: '#1E3A77', size: 0.3 },
         { lat: 41.9028, lng: 12.4964, label: 'Rome, Italy', color: '#1E3A77', size: 0.3 }
     ];
+
+    console.log('Rendering polygons:', polygonFeatures.length);
 
     return (
         <div className="content">
@@ -59,14 +71,15 @@ function Content() {
                     justifyContent: 'center'
                 }}
             >
+            {polygonFeatures.length > 0 &&  (
                 <Globe
                     ref={globeRef}
-                    width={1200}
+                    width={dimensions.width}
                     height={dimensions.height}
 
                     onGlobeReady={handleGlobeReady}
                     globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
-                    backgroundColor="white"
+                    backgroundColor='white'
                     
                     pointsData={visitedCountries}
                     pointLabel="label"
@@ -75,17 +88,20 @@ function Content() {
 
                     pointsTransitionDuration={1000}
                     
-                        polygonsData={countries.features.filter(d => d.properties.ISO_A2 !== 'AQ')}
-                    polygonAltitude={0.01} 
+                    polygonsData={polygonFeatures}
+                    polygonAltitude={0.01}
+
                     polygonCapColor={() => '#1E3A77'} 
-                    polygonSideColor={() => '#1E3A77}'}
+                    polygonSideColor={() => '#1E3A77'}
                     polygonStrokeColor={() => '#FFFFFF'} 
-                    polygonLabel={(d:any) => d.properties?.ADMIN || d.properties?.name || 'Country'}                        
+                    polygonLabel={(d: any) => d.properties?.ADMIN || d.properties?.name || 'Country'}
                     onPolygonClick={(polygon: any, _event, _coords) => {
                         const countryName = polygon.properties?.ADMIN || polygon.properties?.name;
                         console.log(`You clicked on: ${countryName}`);
                     }}
+
                 />
+            )};
             </div>
         </div>
     );

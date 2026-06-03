@@ -2,7 +2,21 @@ import styles from './dashboard.module.css';
 import UserManagement from '../../components/AdminDash/UserManager';
 import Analytics from '../../components/AdminDash/Analytics';
 
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 export default function AdminDashboard() {
+  const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('userRole');
+
+        if (!token || role !== 'Admin') {
+            navigate('/login');
+        }
+    }, [navigate]);
+
   return (
     <div className={styles.pageWrapper}>
       <nav className={styles.sideBar}>
