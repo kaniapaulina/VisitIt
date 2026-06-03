@@ -28,3 +28,25 @@
 .dataTable th {
   background-color: #fff;
 }
+
+.analyticsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px;
+  width: 100%;
+}
+
+.chartCard {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
