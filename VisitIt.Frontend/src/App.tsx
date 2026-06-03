@@ -4,6 +4,7 @@ import Landing from './pages/Landing'
 import './styles/App.css'
 import AdminDashboard from './pages/admin/AdminDashboard';
 import UserHome from './pages/user/UserHome';
+import Login from './pages/loginPage/LoginPage';
 
 function App() {
   return (
@@ -11,8 +12,10 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path='/login' element={<Login/>} />
             <Route path="/user" element={<UserHome/>}></Route>
             <Route path="/admin" element={<AdminDashboard/>}></Route>
+            
           </Routes>
         </BrowserRouter>
       </div>

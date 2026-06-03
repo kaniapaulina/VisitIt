@@ -39,7 +39,7 @@ function Content() {
             }
         };
 
-        const timer = setTimeout(updateDimensions, 100); // ✅ wait for layout to settle
+        const timer = setTimeout(updateDimensions, 100);
 
         const observer = new ResizeObserver(updateDimensions);
         if (containerRef.current) observer.observe(containerRef.current);
