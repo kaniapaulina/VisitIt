@@ -7,8 +7,6 @@ import UserHome from './pages/user/UserHome';
 
 function App() {
   return (
-    <>
-    <body>
       <div className='appMain'>
         <BrowserRouter>
           <Routes>
@@ -18,9 +16,6 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
-      
-    </body>
-    </>
   )
 }
 
