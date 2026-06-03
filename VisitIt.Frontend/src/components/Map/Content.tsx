@@ -3,9 +3,10 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Globe from 'react-globe.gl';
 
 function Content() {
-    const globeRef = useRef<any>();
+    const globeRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const [countries, setCountries] = useState({ features: []});
+    const [countries, setCountries] = useState<{ features: any[] }>({ features: [] });
+    //const [countries, setCountries] = useState({ features: []});
     const [dimensions, setDimensions] = useState({ width: 1200, height: 550 });
 
     useEffect(() => {
@@ -78,7 +79,7 @@ function Content() {
                         polygonsData={countries.features.filter(d => d.properties.ISO_A2 !== 'AQ')}
                     polygonAltitude={0.01} 
                     polygonCapColor={() => '#1E3A77'} 
-                    polygonSideColor={() => '#1E3A77}'}
+                    polygonSideColor={() => '#1E3A77'}
                     polygonStrokeColor={() => '#FFFFFF'} 
                     polygonLabel={(d:any) => d.properties?.ADMIN || d.properties?.name || 'Country'}                        
                     onPolygonClick={(polygon: any, _event, _coords) => {
