@@ -46,6 +46,7 @@ export default function UserManager() {
 
   return (
     <div className={styles.managerContainer}>
+       <h1 className={styles.pageTitle}>User Management</h1>
       <input 
         className={styles.searchInput}
         type="text" 
@@ -75,6 +76,10 @@ export default function UserManager() {
           searchTerm && <p>No user found</p>
         )}
       </div>
+
+       <p className={styles.userCount}>
+        Total users: <strong>{users.length}</strong>
+      </p>
     </div>
   );
 }
