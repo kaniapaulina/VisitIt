@@ -112,5 +112,54 @@
   flex: 1;
 }
 
+@media (max-width: 1024px) {
+  .pageWrapper {
+    flex-direction: column;
+    height: auto; 
+    overflow-y: visible;
+  }
+
+
+  .sideBar {
+    width: 100vw;
+    height: auto;
+    padding: 20px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+ 
+  .navSection {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .navTitle {
+    display: none; 
+  }
+
+ 
+  .mainContent {
+    padding: 20px 10px;
+  }
+
+
+  .dashboardBody {
+    padding: 10px;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sideBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 
 
