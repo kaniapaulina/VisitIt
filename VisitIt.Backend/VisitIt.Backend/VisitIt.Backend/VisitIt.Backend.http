@@ -1,0 +1,6 @@
+@VisitIt.Backend_HostAddress = http://localhost:5294
+
+GET {{VisitIt.Backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

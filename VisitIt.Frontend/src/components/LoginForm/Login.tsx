@@ -3,10 +3,9 @@ import axios from 'axios';
 import './LoginStyle.css'
 
 interface LoginResponse {
-  tokenType: string;
-  accessToken: string;
-  expiresIn: number;
-  refreshToken: string;
+  email: string;
+  role: string;
+  token: string;
 }
 
 export const Login: React.FC = () => {
@@ -26,6 +25,13 @@ export const Login: React.FC = () => {
                 password: password
             });
             alert('Logged in!');
+
+            // Conditional Redirect based on role
+            if (role === 'Admin') {
+            navigate('/admin');
+            } else {
+            navigate('/user');
+            }
 
         } catch (err: any) {
         if (err.response && err.response.status === 401) {
