@@ -1,6 +1,6 @@
 import styles from './dashboard.module.css';
-import UserManagement from '../../components/Admin/UserManager';
-import Analytics from '../../components/Admin/Analytics';
+import UserManagement from '../../components/AdminDash/UserManager';
+import Analytics from '../../components/AdminDash/Analytics';
 
 export default function AdminDashboard() {
   return (
