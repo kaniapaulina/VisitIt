@@ -3,11 +3,11 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Globe from 'react-globe.gl';
 
 function Content() {
-    const globeRef = useRef<any>();
+    const globeRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [polygonFeatures, setPolygonFeatures] = useState<any[]>([]);
     const [dimensions, setDimensions] = useState({ width: 1200, height: 550 });
-
+    
     useEffect(() => {
         fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson')
             .then(res => res.json())

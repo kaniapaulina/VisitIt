@@ -1,6 +1,7 @@
 import Nav from '../../components/Sidebar/Nav';
 import Content from '../../components/Map/Content';
 import Aside from '../../components/Blog/Aside';
+import Calendar from '../../components/Calendar/Calendar';
 import './Home.css';
 
 import { useEffect } from 'react';
@@ -27,6 +28,12 @@ const UserHome = () => {
             </div>
         
             <div className="right-content">
+                <div className="calendar-wrapper" style={{ width: '100%' }}>
+                <Calendar 
+                    visitedDates={[]} 
+                    onDateClick={() => {}} 
+                        />
+                </div>
                 <Aside />
             </div>
         </div>

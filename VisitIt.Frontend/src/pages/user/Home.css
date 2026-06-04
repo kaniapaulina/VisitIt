@@ -46,6 +46,16 @@ body {
   height: 100%;
 }
 
+.right-content {
+  width: 100%;
+  min-width: 0; 
+  overflow: hidden;
+}
+
+.react-calendar {
+  width: 100% !important; 
+  max-width: 100% !important;
+}
 
 @media (max-width: 1500px) {
 
