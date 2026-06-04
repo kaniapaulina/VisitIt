@@ -52,10 +52,6 @@ body {
   overflow: hidden;
 }
 
-.react-calendar {
-  width: 100% !important; 
-  max-width: 100% !important;
-}
 
 @media (max-width: 1500px) {
 

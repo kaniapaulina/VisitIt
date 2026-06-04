@@ -10,6 +10,12 @@
     scroll-padding-top: 100px;
 }
 
+.react-calendar {
+  width: 100% !important; 
+  max-width: 100% !important;
+}
+
+
 ::-webkit-scrollbar {
   width: 6px;
 }
