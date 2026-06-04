@@ -1,0 +1,12 @@
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    height: 90vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+}
