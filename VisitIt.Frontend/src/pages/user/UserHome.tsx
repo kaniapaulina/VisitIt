@@ -16,12 +16,7 @@ const UserHome = () => {
             </div>
         
             <div className="right-content">
-                <div className="calendar-wrapper" style={{ width: '100%' }}>
-                <Calendar 
-                    visitedDates={[]} 
-                    onDateClick={() => {}} 
-                        />
-                </div>
+                
                 <Aside />
             </div>
         </div>
