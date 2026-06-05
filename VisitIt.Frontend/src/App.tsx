@@ -6,6 +6,9 @@ import LoginPage from './pages/loginPage/LoginPage';
 import UserHome from './pages/user/UserHome';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
+import UserManager from './components/AdminDash/UserManager';
+import DataAnalytics from './components/AdminDash/Analytics'; 
+
 const ProtectedRoute: React.FC<{ children: React.ReactNode; adminOnly?: boolean }> = ({ 
   children, 
   adminOnly = false 
@@ -38,7 +41,14 @@ function App() {
             <ProtectedRoute adminOnly>
               <AdminDashboard />
             </ProtectedRoute>
-          } />
+          }>
+          {/* Podstrony admina */}
+            <Route index element={<Navigate to="users" replace />} />
+            <Route path="users" element={<UserManager />} />
+            <Route path="analytics" element={<DataAnalytics />} />
+          </Route>
+          
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>

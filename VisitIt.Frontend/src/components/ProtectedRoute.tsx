@@ -19,7 +19,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   }
 
   if (adminOnly && !isAdmin) {
-    return <Navigate to="/login" replace />;
+    console.log('Nie admin - przekierowuję na /dashboard');
+    return <Navigate to="/dashboard" replace />;
   }
 
   return <>{children}</>;
