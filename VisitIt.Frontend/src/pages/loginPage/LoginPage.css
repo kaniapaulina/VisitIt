@@ -8,5 +8,5 @@ main {
     height: 90vh;
     width: 70vw;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
