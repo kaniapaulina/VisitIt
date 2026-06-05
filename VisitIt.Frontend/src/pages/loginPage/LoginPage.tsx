@@ -6,7 +6,13 @@ const LoginPage = () => {
     return (
         <main>
             <div className="login-container">
-                <Login/>
+                <div className='one'>
+                    <img src="/assets/pixelforest.jpg" alt="Forest Welcome Graphic" />
+                </div>
+                
+                <div className='two'>
+                    <Login />
+                </div>
             </div>
         </main>
         

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/useAuth';
 
+import './LoginStyle.css';
+
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +16,6 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setIsLoading(true);
 
     try {
@@ -35,86 +36,65 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: '100vh',
-      backgroundColor: '#f3f4f6'
-    }}>
-      <div style={{
-        backgroundColor: 'white',
-        padding: '2rem',
-        borderRadius: '8px',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        width: '100%',
-        maxWidth: '400px'
-      }}>
-        <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>Journey Logger</h1>
+    <div className='right-panel'>
+      <div className="form-container">
+        <h1 className='title'>VisitIt</h1>
+        <p className='subtitle'>Register !</p>        
+
+        <div className="divider">
+          <span>Or</span>
+        </div>
+
+        <p className='subtitle'>Login !</p>
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="auth-form">
           {error && (
-            <div style={{
-              padding: '0.75rem',
-              backgroundColor: '#fee2e2',
-              color: '#dc2626',
-              borderRadius: '4px',
-              marginBottom: '1rem'
-            }}>
+            <div className='error-text'>
               {error}
             </div>
           )}
           
-          <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem' }}>Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '0.5rem',
-                border: '1px solid #d1d5db',
-                borderRadius: '4px',
-                boxSizing: 'border-box'
-              }}
-              required
-            />
-          </div>
-          
-          <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem' }}>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '0.5rem',
-                border: '1px solid #d1d5db',
-                borderRadius: '4px',
-                boxSizing: 'border-box'
-              }}
-              required
-            />
+          <div className="form-grid">
+            <div className='form-group'>
+              <label className='label'>Username or Email</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className='form-input'
+                placeholder="Your username"
+                required
+              />
+            </div>
+            
+            <div className='form-group'>
+              <label className='label'>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='form-input'
+                placeholder="xxxxxxxx"
+                required
+              />
+            </div>
           </div>
           
           <button
             type="submit"
             disabled={isLoading}
-            style={{
-              width: '100%',
-              padding: '0.75rem',
-              backgroundColor: '#3b82f6',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              opacity: isLoading ? 0.5 : 1
-            }}
+            className='login-button'
           >
-            {isLoading ? 'Signing in...' : 'Sign in'}
+            {isLoading ? 'Signing in...' : 'Sign In'}
           </button>
+
+          <br/>
+          <p className='subtitle'>
+            hint:<br/>
+            user: admin / password: admin123:<br/>
+            user: user / password: user123:<br/>
+          </p>
+
         </form>
       </div>
     </div>
