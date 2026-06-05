@@ -38,7 +38,7 @@ namespace VisitIt.Backend.Data
                 new User
                 {
                     Id = 2,
-                    Username = "defaultuser",
+                    Username = "user",
                     Email = "user@travel.com",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("user123"),
                     Role = "user",
