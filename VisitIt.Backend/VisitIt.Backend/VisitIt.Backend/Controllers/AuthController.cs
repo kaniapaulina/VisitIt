@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using VisitIt.Backend.DTO;
 using VisitIt.Backend.Models;
+using VisitIt.Backend.Services.Interfaces;
 
 namespace VisitIt.Backend.Controllers
 {
@@ -8,39 +10,46 @@ namespace VisitIt.Backend.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly IAuthService _authService;
 
-        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager)
+        public AuthController(IAuthService authService)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _authService = authService;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto model)
+        public async Task<ActionResult<UserResponseDto>> Login(UserLoginDto loginDto)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null) return Unauthorized("Invalid credentials");
-
-            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-            if (!result.Succeeded) return Unauthorized("Invalid credentials");
-
-            var roles = await _userManager.GetRolesAsync(user);
-            var userRole = roles.FirstOrDefault() ?? "User";
-
-            return Ok(new
+            try
             {
-                Email = user.Email,
-                Role = userRole,
-                Token = "fake-or-real-jwt-token"
-            });
+                var user = await _authService.Login(loginDto);
+                return Ok(user);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized("Invalid username or password");
+            }
         }
-    }
 
-    public class LoginRequestDto
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        [HttpPost("register")]
+        public async Task<ActionResult<UserResponseDto>> Register([FromBody] UserRegisterDto registerDto)
+        {
+            try
+            {
+                var user = await _authService.Register(registerDto);
+                return CreatedAtAction(nameof(Register), user);
+            }
+            catch (InvalidOperationException)
+            {
+                return Unauthorized("Invalid username or password or email?");
+            }
+        }
+
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok(new { message = "API is working!" });
+        }
     }
 }

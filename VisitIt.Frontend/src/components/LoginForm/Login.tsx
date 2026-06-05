@@ -1,82 +1,104 @@
+// src/pages/Login/Login.tsx
 import React, { useState } from 'react';
-import axios from 'axios';
-import './LoginStyle.css'
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/useAuth';
 
-interface LoginResponse {
-  email: string;
-  role: string;
-  token: string;
-}
+import './LoginStyle.css';
 
-export const Login: React.FC = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setError(null);
-        setIsLoading(true);
+const Login: React.FC = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-        try {
-            const response = await axios.post<LoginResponse>('https://localhost:7001/login', {
-                email: email,
-                password: password
-            });
-            alert('Logged in!');
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-            // Conditional Redirect based on role
-            if (role === 'Admin') {
-            navigate('/admin');
-            } else {
-            navigate('/user');
-            }
-
-        } catch (err: any) {
-        if (err.response && err.response.status === 401) {
-            setError('Wrong email or password.');
-        } else {
-            setError('Error with serverside.');
-        }
-        } finally {
-        setIsLoading(false);
-        }
+    try {
+      await login(username, password);
+      
+      const userData = JSON.parse(localStorage.getItem('user') || '{}');
+      if (userData.role?.toLowerCase() === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
+    } catch (err: unknown) {
+      console.error('Login error:', err);
+      setError('Invalid username or password');
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    return (
-        <div className="login-container">
-            <h2>Welcome!</h2>
-            
-            {error && <p className="error-message">{error}</p>}
+  return (
+    <div className='right-panel'>
+      <div className="form-container">
+        <h1 className='title'>VisitIt</h1>
+        <p className='subtitle'>Register !</p>        
 
-            <form onSubmit={handleSubmit} className="login-form">
-                <div className="input-group">
-                <label>Email:</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} 
-                    required
-                    placeholder="example@email.com"
-                />
-                </div>
-
-                <div className="input-group">
-                <label>Password:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)} 
-                    required
-                    placeholder="••••••••"
-                />
-                </div>
-
-                <button type="submit" disabled={isLoading} className="login-button">
-                {isLoading ? 'Logging in...' : 'Log In!'}
-                </button>
-            </form>
+        <div className="divider">
+          <span>Or</span>
         </div>
-    );
+
+        <p className='subtitle'>Login !</p>
+        
+        <form onSubmit={handleSubmit} className="auth-form">
+          {error && (
+            <div className='error-text'>
+              {error}
+            </div>
+          )}
+          
+          <div className="form-grid">
+            <div className='form-group'>
+              <label className='label'>Username or Email</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className='form-input'
+                placeholder="Your username"
+                required
+              />
+            </div>
+            
+            <div className='form-group'>
+              <label className='label'>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='form-input'
+                placeholder="xxxxxxxx"
+                required
+              />
+            </div>
+          </div>
+          
+          <button
+            type="submit"
+            disabled={isLoading}
+            className='login-button'
+          >
+            {isLoading ? 'Signing in...' : 'Sign In'}
+          </button>
+
+          <br/>
+          <p className='subtitle'>
+            hint:<br/>
+            user: admin / password: admin123:<br/>
+            user: user / password: user123:<br/>
+          </p>
+
+        </form>
+      </div>
+    </div>
+  );
 };
+
+export default Login;

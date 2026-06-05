@@ -1,7 +1,6 @@
 import Nav from '../../components/Sidebar/Nav';
 import Content from '../../components/Map/Content';
 import Aside from '../../components/Blog/Aside';
-import Calendar from '../../components/Calendar/Calendar';
 import './Home.css';
 
 import { useEffect } from 'react';

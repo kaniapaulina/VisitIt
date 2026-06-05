@@ -1,11 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace VisitIt.Backend.Models
+﻿namespace VisitIt.Backend.Models
 {
-    public class User : IdentityUser
+    public class User
     {
-        private string? nickName;
+        public int Id {  get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string PasswordHash { get; set; }
 
-        public string? NickName { get; set; }
+        // User or Admin
+        public string Role { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public ICollection<Journey> Journeys { get; set;}
     }
 }
