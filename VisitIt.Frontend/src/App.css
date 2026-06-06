@@ -1,4 +1,40 @@
-@import 'leaflet/dist/leaflet.css';
+/* src/styles/root.css */
+:root {
+  --color-primary: #124d3e;
+  --color-primary-light: #a7dec0;
+  --color-primary-gradient: linear-gradient(to right, #c9ebd8, #a7dec0);
+  
+  --color-accent: #b3dfd2;
+  --color-white: #ffffff;
+
+  --background-color-body:  #f0f4f2;
+  --background-color-container: #1a6855;
+  
+  --color-white-15: rgba(255, 255, 255, 0.15);
+  --color-white-30: rgba(255, 255, 255, 0.3);
+  --color-white-40: rgba(255, 255, 255, 0.4);
+  
+  --color-error-bg: rgba(235, 87, 87, 0.15);
+  --color-error-border: #eb5757;
+  --color-error-text: #ff8a8a;
+  
+  --color-visited: #3e7440;
+  --color-want-to-visit: #547a61;
+  --color-default-country: #546E7A;
+  --color-hover-country: #90A4AE;
+  
+  --color-sidebar-bg: #1a1a2e;
+  --color-bg: #f8f9fa;
+  --color-card: #ffffff;
+  --color-border: #e0e0e0;
+  --color-text: #333333;
+  --color-text-light: #666666;
+  --color-text-muted: #999999;
+  
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-family-serif: 'Georgia', serif;
+
+}
 
 * { 
   box-sizing: border-box; 
@@ -7,12 +43,9 @@
 }
  
 html, body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-family);
 }
 
-body {
-
-}
 
 .appMain {
   width: 100%;
