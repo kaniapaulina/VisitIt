@@ -1,10 +1,11 @@
+@import '../../App.css';
 
 .right-panel {
     padding: 40px 45px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: #ffffff;
+    color: var(--color-white);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -16,12 +17,12 @@
     font-size: 4rem;
     font-weight: 600;
     margin: 0 0 4px 0;
-    color: #ffffff;
+    color: var(--color-white);
 }
 
 .subtitle {
     font-size: 14px;
-    color: #b3dfd2;
+    color:  var(--color-white);
     margin: 0 0 24px 0;
 }
 
@@ -30,7 +31,7 @@
     align-items: center;
     text-align: center;
     margin-bottom: 24px;
-    color: #b3dfd2;
+    color: var(--color-accent);
     font-size: 12px;
 }
 
@@ -38,7 +39,7 @@
 .divider::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid var(--color-white-15);
 }
 
 .divider:not(:empty)::before {
@@ -63,24 +64,24 @@
 
 .label {
   font-size: 11px;
-  color: #b3dfd2;
+  color: var(--color-accent);
   margin-bottom: 6px;
   padding-left: 4px;
 }
 
 .form-input {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--color-white-40);
   border-radius: 15px;
   padding: 10px 16px;
-  color: #ffffff;
+  color: var(--color-white);
   font-size: 13px;
   outline: none;
   transition: border-color 0.2s;
 }
 
 .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--color-white-30);
 }
 
 .form-input:focus {
@@ -89,9 +90,9 @@
 
 .error-text {
   grid-column: span 2;
-  background-color: rgba(235, 87, 87, 0.15);
-  border: 1px solid #eb5757;
-  color: #ff8a8a;
+  background-color: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error-text);
   padding: 8px 14px;
   border-radius: 8px;
   font-size: 12px;
@@ -99,8 +100,8 @@
 }
 
 .login-button {
-  background: linear-gradient(to right, #c9ebd8, #a7dec0); 
-  color: #124d3e;
+  background: var(--color-primary-gradient); 
+  color: var(--color-primary);
   border: none;
   border-radius: 15px;
   padding: 12px 36px;

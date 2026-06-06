@@ -1,13 +1,13 @@
 .aside-main {
-    background-color: antiquewhite;
+  margin-top: 5px;
+  background-color: var(--color-primary-light);
 
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    padding: 10px;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
 
-    scroll-behavior: smooth;
-    scroll-padding-top: 100px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 .react-calendar {

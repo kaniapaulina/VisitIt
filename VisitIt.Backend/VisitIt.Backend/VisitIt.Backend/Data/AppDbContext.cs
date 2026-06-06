@@ -32,7 +32,7 @@ namespace VisitIt.Backend.Data
                     Username = "admin",
                     Email = "admin@travel.com",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
-                    Role = "admin",
+                    Role = "Admin",
                     CreatedAt = DateTime.UtcNow
                 },
                 new User
@@ -41,7 +41,7 @@ namespace VisitIt.Backend.Data
                     Username = "user",
                     Email = "user@travel.com",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("user123"),
-                    Role = "user",
+                    Role = "User",
                     CreatedAt = DateTime.UtcNow
                 }
             );

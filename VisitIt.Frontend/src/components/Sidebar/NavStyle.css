@@ -1,3 +1,5 @@
+@import '../../App.css';
+
 .navbar {
   height: 100%;
   width: auto;
@@ -10,8 +12,10 @@
 }
 
 .nav-header {
+  padding-top: 30px;
   display: flex;
   justify-content: center;
+  padding-bottom: 20px;
 }
 
 .nav-footer {
@@ -35,30 +39,11 @@
 .nav-brand {
   font-size: 2.2rem;
   font-weight: bold;
-  color: #1E3A77;
+  color: var(--color-primary);
 }
 
-.nav-links {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 30px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #5D6B6B;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover {
-  color: #1E3A77;
-}
 
 .nav-user {
-  background-color: #F7CBCA;
   padding: 0.5rem 1rem;
   border-radius: 30px;
   font-weight: 500;
@@ -66,8 +51,9 @@
 }
 
 .nav-footer {
+  width: 100%;
   padding-top: 1rem;
-  border-top: 2px solid #116351;
+  border: 2px solid #116351;
   background-color: mintcream;
   border-radius: 20px;
 }
@@ -81,7 +67,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   padding: 0.5rem;
   cursor: pointer;
   border-radius: 12px;
@@ -100,8 +86,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.2rem;
 }
 
 .user-details {

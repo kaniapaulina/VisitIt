@@ -1,10 +1,7 @@
-html {
-  background-color: lightgray;
-}
+@import '../../App.css';
 
 body {
-  background-color: lightgray;
-
+  background-color: var(--background-color-body);
 }
 
 .dashboard {
@@ -13,11 +10,9 @@ body {
   grid-template-columns: 20% 80%;
   height: 90vh;
   width: 90%;
-  background-color: white;
-
+  background-color: var(--color-white);
   border-radius: 24px;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.05);
-
   margin: 40px auto;
   padding: 10px;
 }
@@ -30,56 +25,96 @@ body {
 
 .main-block {
   grid-column: 2;
-  display: grid;
-  grid-template-columns: 60% 40%;
-  gap: 5px;
+  position: relative;
   padding: 10px;
-  background-color: #D5E5E5;
+  background-color: var(--background-color-container);
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   height: 99%;
   width: 100%;
+  overflow: hidden;
+}
+
+.map-view {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+  opacity 0.5s ease;
+}
+
+.map-view.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.main-block.editing .map-view {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+
+.editor-view {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90%;
+  height: 100%;
+  transform: translateX(100%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 20px;
+  overflow: hidden;
+  padding-right: 10px;
+  padding-top: 7px;
+}
+
+.editor-view.active {
+  transform: translateX(0);
 }
 
 .main-content {
-  width: auto;
+  border-radius: 20px;
+  width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .right-content {
+  border-radius: 20px;
   width: 100%;
-  min-width: 0; 
+  min-width: 0;
   overflow: hidden;
 }
 
 
-@media (max-width: 1500px) {
 
-  .main-block {
-    padding-right: 20px;
+
+@media (max-width: 1500px) {
+  .map-view {
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow-y: auto;
   }
 
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #D5E5E5;
+    background: var(--color-hover-country);
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1E3A77;
+    background: var(--color-default-country);
     border-radius: 10px;
   }
 }
 
-
 @media (max-width: 1024px) {
   .dashboard {
-    width: 100%; 
-    margin: 0; 
+    width: 100%;
+    margin: 0;
     height: auto;
     border-radius: 0;
     display: flex;
@@ -87,17 +122,19 @@ body {
   }
 
   .main-block {
-    padding-right: 10px;
-    display: flex;
-    flex-direction: column;
     overflow: hidden;
     flex-shrink: 0;
   }
 
-  .nav-block {
-    height: fit-content;
-    margin-right: 0px;
-    margin-bottom: 10px;
+  .map-view {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
   }
 
+  .nav-block {
+    height: fit-content;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }

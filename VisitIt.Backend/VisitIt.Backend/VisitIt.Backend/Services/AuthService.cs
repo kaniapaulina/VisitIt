@@ -81,9 +81,6 @@ namespace VisitIt.Backend.Services
                 Token = token
             };
         }
-
-
-
         private string GenerateJwtToken(User user)
         {
             var claims = new[]
