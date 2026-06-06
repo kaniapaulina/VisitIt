@@ -35,6 +35,8 @@
   gap: 20px;
   padding: 20px;
   width: 100%;
+  flex-grow: 1;
+  height: 100%;
 }
 
 .chartsGrid {
@@ -49,4 +51,10 @@
   padding: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
+}
+
+.pageTitle {
+  color: var(--text-main);
+  margin-top: 0;        
+  margin-bottom: 10px;  
 }

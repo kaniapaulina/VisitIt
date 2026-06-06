@@ -17,6 +17,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
 
     try {
       await login(username, password);
@@ -27,9 +28,9 @@ const Login: React.FC = () => {
       } else {
         navigate('/dashboard');
       }
-    } catch (err: unknown) {
-      console.error('Login error:', err);
-      setError('Invalid username or password');
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || err.message || 'Invalid username or password';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

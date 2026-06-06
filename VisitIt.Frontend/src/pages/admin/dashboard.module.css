@@ -7,13 +7,14 @@
 }
 
 .pageWrapper {
-  width: 100vw;
-  height: 100vh;     
-  overflow-y: auto;   
+  width: 100%;
+  height: 100vh;  
+  border-radius: 20px;
+  padding: 10px, 10px;     
   display: flex;
   background-color: var(--bg-color);
-  flex-direction: row;
   font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
 }
 
 .sideBar{
@@ -26,8 +27,7 @@
   flex-shrink: 0;
   gap: 20px;
   height: 100vh;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-radius: 20px;
 }
 
 .navSection {
@@ -95,6 +95,7 @@
   padding: 40px;
   flex-direction: column;
   overflow-y: auto; 
+  min-width: 0;
 }
 
 .container {
@@ -109,7 +110,11 @@
   gap: 20px;
   padding: 20px 2.5vw;
   width: 100%;
-  flex: 1;
+  min-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
@@ -119,14 +124,11 @@
     overflow-y: visible;
   }
 
-
   .sideBar {
     width: 100vw;
     height: auto;
     padding: 20px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-radius: 20px;
     flex-direction: row; 
     justify-content: space-between;
     align-items: center;

@@ -1,21 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './UserManager.module.css';
 
-const initialUsers = [
-  { id: 1, name: 'Nates', posts: ["Kocham grafa", 'Graf wroc z wakacji w Hiszpanii', "Boze swiety nie wyspalam sie", "Co tu jeszcze mg dodac"] },
-  { id: 2, name: 'Paulina', posts: ['Nates zrob admina', 'Nates naucz sie wymawiac poprawwnie tekst Ta pipa w kebabie damn Wysiadlam na zlym przystanku zamiast aghu 1/10',
-    'Do you ever have a dream that you when you smh smh i forgot what the rest of the vine went like oh god this will be in the commits XDD',
-    'We have way more to test i mean pewnie daloby sie to zrobic o wiele latwiej ale lowk spalam dzis 4h i chce miec to z glowy this is not it',
-    "i am so sleepy graf pls come back i need to focus somehow a z ewronem to sie nie da w ogole WHAT IS THIS DONO MESSAGE I CANT ",
-    "this is legit like a test like i feel insane",
-    "test131391230"
-    ] },
-];
-
 export default function UserManager() {
-  const [users, setUsers] = useState(initialUsers);
+  const [users, setUsers] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [foundUser, setFoundUser] = useState<any>(null);
+
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem('token');
+    return {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+  };
+
+  useEffect(() => {
+    fetch('https://localhost:7201/api/users', {
+      method: 'GET',
+      headers: getAuthHeaders()
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Błąd autoryzacji lub serwera');
+        return res.json();
+      })
+      .then(data => setUsers(data))
+      .catch(err => console.error("Fetch users error:", err));
+  }, []);
 
   const handleSearch = (term: string) => {
     setSearchTerm(term);
@@ -23,30 +33,37 @@ export default function UserManager() {
       setFoundUser(null);
       return;
     }
-    const user = users.find(u => u.name.toLowerCase() === term.toLowerCase());
+    const user = users.find(u => u.username.toLowerCase() === term.toLowerCase());
     setFoundUser(user || null);
   };
 
-  const deletePost = (userId: number, postIndex: number) => {
-    setUsers(prevUsers => {
-    const updatedUsers = prevUsers.map(user => {
-      if (user.id === userId) {
-        const updatedPosts = user.posts.filter((_, i) => i !== postIndex);
-        return { ...user, posts: updatedPosts };
-      }
-      return user;
-    });
+  const handleBan = async (userId: number) => {
+    try {
+      const response = await fetch(`https://localhost:7201/api/users/toggle-ban/${userId}`, {
+        method: 'POST',
+        headers: getAuthHeaders()
+      });
 
-    const updatedFoundUser = updatedUsers.find(u => u.id === userId);
-    setFoundUser(updatedFoundUser || null);
-      
-    return updatedUsers;
-  });
-};
+      if (response.ok) {
+        const result = await response.json();
+        
+        setUsers(prevUsers => prevUsers.map(user => 
+          user.id === userId ? { ...user, isBanned: result.isBanned } : user
+        ));
+        
+        if (foundUser && foundUser.id === userId) {
+          setFoundUser({ ...foundUser, isBanned: result.isBanned });
+        }
+      }
+    } catch (err) {
+      console.error("Ban error:", err);
+    }
+  };
 
   return (
     <div className={styles.managerContainer}>
-       <h1 className={styles.pageTitle}>User Management</h1>
+      <h1 className={styles.pageTitle}>User Management</h1>
+      
       <input 
         className={styles.searchInput}
         type="text" 
@@ -57,27 +74,23 @@ export default function UserManager() {
 
       <div className={styles.resultsArea}>
         {foundUser ? (
-          <div>
-            <h3>{foundUser.name}</h3>
-            <ul className={styles.postList}>
-              {foundUser.posts.map((post: string, index: number) => (
-                <li key={`${foundUser.id}-${post}`} className={styles.postItem}>
-                  {post}
-                  <button 
-                    onClick={() => deletePost(foundUser.id, index)}
-                    className={styles.deleteButton}>
-                    Delete
-                  </button>
-                </li>
-              ))}
-            </ul>
+          <div className={styles.userCard}>
+            <h3>{foundUser.username}</h3>
+            <p>Status: {foundUser.isBanned ? '🔴 Zbanowany' : '🟢 Aktywny'}</p>
+            
+            <button 
+              onClick={() => handleBan(foundUser.id)}
+              className={foundUser.isBanned ? styles.unbanButton : styles.banButton}
+            >
+              {foundUser.isBanned ? 'Unban User' : 'Ban User'}
+            </button>
           </div>
         ) : (
           searchTerm && <p>No user found</p>
         )}
       </div>
 
-       <p className={styles.userCount}>
+      <p className={styles.userCount}>
         Total users: <strong>{users.length}</strong>
       </p>
     </div>

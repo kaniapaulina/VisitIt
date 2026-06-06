@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VisitIt.Backend.DTO;
+using VisitIt.Backend.Exceptions;
 using VisitIt.Backend.Models;
 using VisitIt.Backend.Services.Interfaces;
+
 
 namespace VisitIt.Backend.Controllers
 {
@@ -28,6 +30,10 @@ namespace VisitIt.Backend.Controllers
             catch (UnauthorizedAccessException)
             {
                 return Unauthorized("Invalid username or password");
+            }
+            catch (BannedUserException ex)
+            {
+                return StatusCode(403, new { message = ex.Message });
             }
         }
 
