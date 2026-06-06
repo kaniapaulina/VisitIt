@@ -7,6 +7,7 @@ using VisitIt.Backend.Data;
 using VisitIt.Backend.DTO;
 using VisitIt.Backend.Models;
 using VisitIt.Backend.Services.Interfaces;
+using VisitIt.Backend.Exceptions;
 
 namespace VisitIt.Backend.Services
 {
@@ -27,6 +28,11 @@ namespace VisitIt.Backend.Services
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash)) {
                 throw new UnauthorizedAccessException("Invalid Password!");
+            }
+
+            if (user.IsBanned)
+            {
+                throw new BannedUserException("Your account has been banned.");
             }
 
             var token = GenerateJwtToken(user);

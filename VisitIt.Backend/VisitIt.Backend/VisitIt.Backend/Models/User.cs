@@ -13,5 +13,7 @@
         public DateTime CreatedAt { get; set; }
 
         public ICollection<Journey> Journeys { get; set;}
+
+        public bool IsBanned { get; set; }
     }
 }
