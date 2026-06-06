@@ -1,9 +1,11 @@
+@import '../../App.css';
+
 main {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f4f2;
+    background-color: var(--background-color-body);
     padding: 20px;
 }
 
@@ -12,7 +14,7 @@ main {
     flex-direction: row;
     width: 1000px;
     height: 600px;
-    background-color: #1a6855;
+    background-color: var(--background-color-container);
     border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(197, 194, 194, 0.15);
@@ -24,7 +26,6 @@ main {
     height: 100%;
     position: relative;
     overflow: hidden;
-    background-color: #e2f4ea;
     z-index: 2;
 }
 
