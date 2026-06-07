@@ -1,10 +1,13 @@
 import styles from './dashboard.module.css';
-
-import { useEffect } from 'react';
 import { useNavigate, NavLink, Outlet } from 'react-router-dom';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
 
   return (
     <div className={styles.pageWrapper}>
@@ -24,6 +27,9 @@ export default function AdminDashboard() {
         <div className={styles.userSection}>
             <img src="https://d1jyxxz9imt9yb.cloudfront.net/medialib/3078/image/s768x1300/IP202207_GlassFrogs_009_365211_reduced.jpg" alt="User" className={styles.userAvatar} />
             <span className={styles.userName}>Admin</span>
+            <button onClick={handleLogout} className={styles.logoutBtn}>
+              Log out
+            </button>
          </div>
       </nav>
 

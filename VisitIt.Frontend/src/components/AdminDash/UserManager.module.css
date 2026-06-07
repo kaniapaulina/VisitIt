@@ -39,18 +39,43 @@
   border-bottom: 1px solid #ddd;
 }
 
-.deleteButton {
-  background: black;
+.banButton {
+  background-color: #87281d;
   color: white;
   border: none;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-left: 10px;
+   font-weight: 600;
+  transition: background 0.3s;
+}
+
+.unbanButton {
+  flex-shrink: 0;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
 }
 
 .pageTitle {
   color: var(--text-main);
   margin-top: 0;        
   margin-bottom: 10px;  
+}
+
+.userCard {
+  display: flex;
+  flex-direction: row;        
+  align-items: center;        
+  justify-content: space-between; 
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  width: 100%;
+  gap: 20px;
 }
