@@ -1,10 +1,7 @@
 import styles from './dashboard.module.css';
-import UserManagement from '../../components/AdminDash/UserManager';
-import Analytics from '../../components/AdminDash/Analytics';
 
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { NavLink, Outlet } from 'react-router-dom';
+import { useNavigate, NavLink, Outlet } from 'react-router-dom';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
