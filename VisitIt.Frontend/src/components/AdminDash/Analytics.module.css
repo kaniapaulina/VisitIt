@@ -14,6 +14,10 @@
   border-radius: 4px;
 }
 
+h3 {
+  color: #1a6855; 
+}
+
 .dataTable {
   width: 100%;
   border-collapse: collapse;
@@ -36,7 +40,8 @@
   padding: 20px;
   width: 100%;
   flex-grow: 1;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
 }
 
 .chartsGrid {
@@ -44,6 +49,7 @@
   grid-template-columns: 1fr 1fr; 
   gap: 20px;
   width: 100%;
+  height: auto;
 }
 
 .chartCard {

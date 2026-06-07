@@ -40,7 +40,7 @@ const topVisitedData = [...countryData]
 
 const customStyles = {
   table: { style: { borderRadius: '16px', overflow: 'hidden' } },
-  headRow: { style: { backgroundColor: '#3f6b4d', color: '#fff' } },
+  headRow: { style: { backgroundColor: '#1a6855', color: '#fff' } },
   cells: { style: { padding: '16px' } },
 };
 
@@ -54,27 +54,27 @@ export default function DataAnalytics() {
     <div className={styles.analyticsContainer}>
       <h1 className={styles.pageTitle}>Analytics</h1>
       <div className={styles.chartCard}>
-  <h3>Highest ranked countries (Top 10)</h3>
+  <h3>Highest ranked countries</h3>
   <ResponsiveContainer width="100%" height={300}>
     <BarChart data={topRatedData}> 
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis domain={[0, 5]} />
       <Tooltip />
-      <Bar dataKey="rating" fill="#99d78f" />
+      <Bar dataKey="rating" fill="#1a6855" />
     </BarChart>
   </ResponsiveContainer>
 </div>
 
 <div className={styles.chartCard}>
-  <h3>Most visited countries (Top 10)</h3>
+  <h3>Most visited countries</h3>
   <ResponsiveContainer width="100%" height={300}>
     <BarChart data={topVisitedData}> 
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Bar dataKey="visits" fill="#99d78f" />
+      <Bar dataKey="visits" fill="#1a6855" />
     </BarChart>
   </ResponsiveContainer>
 </div>
