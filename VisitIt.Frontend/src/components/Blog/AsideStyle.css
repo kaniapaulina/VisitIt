@@ -1,13 +1,18 @@
 .aside-main {
   margin-top: 5px;
-  background-color: var(--color-primary-light);
+  
+  background-image: url('../../../public/assets/pixelforest.jpg');
+  background-position: 50% 50%;;
+  background-size: contain;
 
   width: 100%;
-  height: 100%;
   border-radius: 20px;
+  min-height: 500px;
+  height: max-content;
 
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
+  overflow-y: scroll;
 }
 
 .react-calendar {

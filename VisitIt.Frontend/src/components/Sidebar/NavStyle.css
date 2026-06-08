@@ -16,7 +16,9 @@
   display: flex;
   justify-content: center;
   padding-bottom: 20px;
+  text-align: center;
 }
+
 
 .nav-footer {
   align-items: center;
@@ -25,6 +27,14 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
+  width: 100%;
+  padding-top: 1rem;
+  border: 2px solid #116351;
+  background-color: mintcream;
+  border-radius: 20px;
+  
+  /*background: radial-gradient(circle, #b2dfff, mintcream);*/
+  background-color: var(--background-color-container);
 }
 
 .home-link {
@@ -37,7 +47,7 @@
 }
 
 .nav-brand {
-  font-size: 2.2rem;
+  font-size: 3rem;
   font-weight: bold;
   color: var(--color-primary);
 }
@@ -47,20 +57,13 @@
   padding: 0.5rem 1rem;
   border-radius: 30px;
   font-weight: 500;
-  color: #1E3A77;
-}
-
-.nav-footer {
-  width: 100%;
-  padding-top: 1rem;
-  border: 2px solid #116351;
-  background-color: mintcream;
-  border-radius: 20px;
+  color: #ffffff;
 }
 
 .nav-profile-link {
   text-decoration: none;
 }
+
 
 .user-info {
   display: flex;
@@ -75,13 +78,13 @@
 }
 
 .user-info:hover {
-  background-color: #6cb9a2;
+  background-color: #317260;
 }
 
 .user-avatar {
   width: 40px;
   height: 40px;
-  background-color: #116351;
+  background-color: #afcec7;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -94,31 +97,52 @@
 }
 
 .user-details strong {
-  color: #1E3A77;
-  font-size: 1.3rem;
+  color: #ffffff;
+  font-size: 1.9rem;
 }
 
-.user-details span {
-  color: #5D6B6B;
+.user-details p {
+  color: #b5c7c7;
 }
 
 .logout-btn {
   height: 100%;
   background-color: transparent;
   border: none;
-  color: #5D6B6B;
+  color: #b5c7c7;
   font-weight: 500;
   padding: 5px;
-  border-radius: 12px;
+  border-radius: 8px;
   transition: background 0.2s;
 }
 
 .logout-btn:hover {
-    background-color: #6cb9a2;
+    background-color: #317260;
+}
+
+@media (max-width: 1350px) {
+  .user-details {
+    align-content: center;
+    align-items: center;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  .user-info {
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+  
 }
 
 @media (max-width: 1024px) {
 
+  .user-info {
+    flex-direction: row;
+  }
   .nav-header, .nav-footer {
     width: 100%;
     flex-direction: row;

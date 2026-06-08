@@ -15,22 +15,26 @@ const Nav = () => {
     return(
         <>
         <nav className="navbar">
-            <div className="nav-header">
-                <Link to="/user" className="home-link">
-                <div className="nav-brand">VisitMe</div>
-                </Link>
+            <div className='nav-header-wrapper'>
+                <div className="nav-header">
+                    <Link to="/user" className="home-link">
+                    <div className="nav-brand">VisitIt</div>
+                    <p>click me if you're lost!</p>
+                    </Link>
+                </div>
             </div>
+            
         
 
             <div className="nav-footer">
                 <Link to="/user/profile" className="nav-profile-link">
-                <div className="user-info">
-                    <div className="user-avatar"></div>
-                    <div className="user-details">
-                        <strong>{user?.username}</strong>
-                        <span>Visit Profile</span>
+                    <div className="user-info">
+                        <div className="user-avatar"></div>
+                        <div className="user-details">
+                            <strong>{user?.username}</strong>
+                            <p>Visit Profile</p>
+                        </div>
                     </div>
-                </div>
                 </Link>
                 <div className="logout-button">
                     <button onClick={handleLogout} className="logout-btn">
