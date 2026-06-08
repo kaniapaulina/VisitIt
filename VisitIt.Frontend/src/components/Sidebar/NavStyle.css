@@ -147,4 +147,8 @@
     width: 100%;
     flex-direction: row;
   }
+
+  .logout-btn {
+    font-size: 1.1rem;
+  }
 }

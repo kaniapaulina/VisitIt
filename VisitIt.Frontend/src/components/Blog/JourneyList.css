@@ -1,17 +1,41 @@
 .journey-list {
-  padding: 16px;
+  padding-top: 10px;
+}
+
+.list-header {
+  padding: 10px 20px;
+  display: flex;
+  background-color: #e3eccc;
+  border-radius: 6px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-content {
+  padding: 15px;
 }
 
 .journey-list h3 {
-  margin: 0 0 16px 0;
-  font-size: 1.1rem;
+  font-size: 1.6rem;
   color: #333;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #e0e0e0;
+}
+
+.travel-count {
+  font-size: 1.1rem;
+  padding: 10px;
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  transition: all 0.3s;
+}
+
+.travel-count:hover {
+  transform: scale(1.05);
 }
 
 .loading-text {
-  color: #999;
+  color: #ffffff;
   text-align: center;
   padding: 20px;
 }
@@ -20,6 +44,7 @@
   text-align: center;
   padding: 30px 20px;
   color: #999;
+  background-color: var(--background-color-container);
 }
 
 .empty-state p {
@@ -40,20 +65,15 @@
 }
 
 .journey-item {
-  background: white;
-  border: 1px solid #e8e8e8;
+  background-color: rgba(244, 252, 226, 0.9);
+  opacity: 0.5;
   border-radius: 12px;
   transition: all 0.2s;
 }
 
 .journey-item:hover {
-  border-color: #4caf50;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.journey-item.expanded {
-  border-color: #4caf50;
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.1);
+   background-color: rgba(227,236,204, 1);
+  box-shadow: 5px rgba(0, 0, 0, 0.1);
 }
 
 .journey-header {
@@ -75,7 +95,7 @@
 
 .journey-title-section h4 {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1.4rem;
   color: #333;
   white-space: nowrap;
   overflow: hidden;
@@ -83,8 +103,12 @@
 }
 
 .journey-location {
-  font-size: 0.8rem;
-  color: #888;
+  font-size: 1.1rem;
+  color: #5a5a5a;
+}
+
+.journey-date {
+  font-weight: 500;
 }
 
 

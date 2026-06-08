@@ -46,41 +46,46 @@ const JourneyList: React.FC<JourneyListProps> = ({ onJourneyClick }) => {
 
   return (
     <div className="journey-list">
-      <h3>Your journeys ({journeys.length})</h3>
+      <div className='list-header'>
+        <h3>Your Entries</h3><p className='travel-count'>{journeys.length} {journeys.length === 1 ? 'journey' : 'journeys'}</p>
+      </div>
       
-      {journeys.length === 0 ? (
-        <div className="empty-state">
-          <p>Nothing visited yet</p>
-          <p className="hint">Click on a country to mark a past endeavour!</p>
-        </div>
-      ) : (
-        <div className="journey-items">
-          {journeys.map(journey => (
-            <div 
-              key={journey.id} 
-              className={`journey-item ${expandedId === journey.id ? 'expanded' : ''}`}
-            >
+      <div className='list-content'>
+        {journeys.length === 0 ? (
+          <div className="empty-state">
+            <p>Nothing visited yet</p>
+            <p className="hint">Click on a country to mark a past endeavour!</p>
+          </div>
+        ) : (
+          <div className="journey-items">
+            {journeys.map(journey => (
               <div 
-                className="journey-header"
-                onClick={() => {
-                  onJourneyClick(journey);
-                }}
+                key={journey.id} 
+                className={`journey-item ${expandedId === journey.id ? 'expanded' : ''}`}
               >
-                <div className="journey-title-section">
-                
-                  <div>
-                    <h4>{journey.title}</h4>
-                    <span className="journey-location">[ {journey.country} ] {journey.location}</span>
+                <div 
+                  className="journey-header"
+                  onClick={() => {
+                    onJourneyClick(journey);
+                  }}
+                >
+                  <div className="journey-title-section">
+                  
+                    <div>
+                      <h4>{journey.title}</h4>
+                      <span className="journey-location">Country: {journey.country} | Location: {journey.location}</span>
+                    </div>
+                  </div>
+                  <div className="journey-meta">
+                    <span className="journey-date">{formatDate(journey.startDate)}</span>
                   </div>
                 </div>
-                <div className="journey-meta">
-                  <span className="journey-date">{formatDate(journey.startDate)}</span>
-                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
+
     </div>
   );
 };
