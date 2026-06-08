@@ -19,7 +19,7 @@ namespace VisitIt.Backend.Controllers
 
         // GET: api/users
         [HttpGet]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
             var users = await _context.Users.ToListAsync();
@@ -28,7 +28,7 @@ namespace VisitIt.Backend.Controllers
 
         // POST: api/users/toggle-ban/{id}
         [HttpPost("toggle-ban/{id}")]
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ToggleBan(int id)
         {
             var user = await _context.Users.FindAsync(id);

@@ -1,12 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.Swagger;
 using System.Text;
 using VisitIt.Backend.Data;
-using VisitIt.Backend.Models;
 using VisitIt.Backend.Services;
 using VisitIt.Backend.Services.Interfaces;
 using Microsoft.OpenApi.Models;
@@ -17,15 +13,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Journey Logger API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "VisitIt API", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "Wpisz token JWT: Bearer {twój token}",
+        Description = "Wpisz token JWT:",
         Name = "Authorization",
         In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -39,7 +36,7 @@ builder.Services.AddSwaggerGen(c =>
                     Id = "Bearer"
                 }
             },
-            new string[] {}
+           Array.Empty<string>()
         }
     });
 });
@@ -111,7 +108,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "VisitIt API v1");
+        c.RoutePrefix = "swagger";
+    });
 }
 
 app.UseHttpsRedirection();
@@ -127,14 +128,14 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    //await db.Database.EnsureDeletedAsync();
-    //Console.WriteLine("Stara baza usuniêta");
+    await db.Database.EnsureDeletedAsync();
+    Console.WriteLine("Stara baza usuniêta");
 
-    //await db.Database.EnsureCreatedAsync();
-    //Console.WriteLine("Nowa baza stworzona");
+    await db.Database.EnsureCreatedAsync();
+    Console.WriteLine("Nowa baza stworzona");
 
-    await db.Database.MigrateAsync();
-    Console.WriteLine("Baza zaktualizowana");
+    //await db.Database.MigrateAsync();
+    //Console.WriteLine("Baza zaktualizowana");
 }
 
 app.Run();

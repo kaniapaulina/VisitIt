@@ -33,7 +33,8 @@ namespace VisitIt.Backend.Data
                     Email = "admin@travel.com",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
                     Role = "Admin",
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.UtcNow,
+                    IsBanned = false
                 },
                 new User
                 {
@@ -42,7 +43,24 @@ namespace VisitIt.Backend.Data
                     Email = "user@travel.com",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("user123"),
                     Role = "User",
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.UtcNow,
+                    IsBanned = false
+                }
+            );
+
+            modelBuilder.Entity<Journey>().HasData(
+                new Journey
+                {
+                    Id = 2,
+                    Title = "Test",
+                    Description = "Test",
+                    StartDate = new DateTime(2025, 01, 01),
+                    EndDate = new DateTime(2025, 02, 01),
+                    Country = "DEU",
+                    Location = "Berlin",
+                    DistanceKm = 300,
+                    Notes = "-",
+                    UserId = 2
                 }
             );
         }

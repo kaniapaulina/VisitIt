@@ -11,7 +11,6 @@
         public string Location { get; set; }
         public int DistanceKm { get; set; }
         public string Notes { get; set; }
-        public string Status { get; set; } = "draft";
 
         // Foreign keys
         public int UserId { get; set; }

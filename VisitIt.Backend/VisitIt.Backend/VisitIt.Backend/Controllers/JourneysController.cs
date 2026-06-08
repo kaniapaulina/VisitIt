@@ -20,10 +20,17 @@ namespace VisitIt.Backend.Controllers
             _context = context;
         }
 
+        private int GetUserId()
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            return int.Parse(userIdClaim);
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<JourneyResponseDto>>> GetMyJourneys()
         {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = GetUserId();
 
             var journeys = await _context.Journeys
                 .Where(j => j.UserId == userId)
@@ -38,7 +45,6 @@ namespace VisitIt.Backend.Controllers
                     Location = j.Location,
                     DistanceKm = j.DistanceKm,
                     Notes = j.Notes,
-                    Status = j.Status,
                     UserName = j.User.Username
 
                 }).ToListAsync();
@@ -65,6 +71,9 @@ namespace VisitIt.Backend.Controllers
         {
             var userId = GetUserId();
 
+            if (dto.EndDate < dto.StartDate)
+                return BadRequest("End date cannot be before start date");
+
             var journey = new Journey
             {
                 Title = dto.Title,
@@ -75,7 +84,6 @@ namespace VisitIt.Backend.Controllers
                 EndDate = dto.EndDate,
                 DistanceKm = dto.DistanceKm,
                 Notes = dto.Notes,
-                Status = dto.Status,
                 UserId = userId,
             };
 
@@ -104,14 +112,13 @@ namespace VisitIt.Backend.Controllers
             journey.EndDate = dto.EndDate;
             journey.DistanceKm = dto.DistanceKm;
             journey.Notes = dto.Notes;
-            journey.Status = dto.Status;
 
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        // Usuń podróż
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteJourney(int id)
         {
@@ -156,11 +163,6 @@ namespace VisitIt.Backend.Controllers
             return Ok(journeys);
         }
 
-        private int GetUserId()
-        {
-            return int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        }
-
         private static JourneyResponseDto MapToDto(Journey journey)
         {
             return new JourneyResponseDto
@@ -174,7 +176,6 @@ namespace VisitIt.Backend.Controllers
                 EndDate = journey.EndDate,
                 DistanceKm = journey.DistanceKm,
                 Notes = journey.Notes,
-                Status = journey.Status,
                 UserName = journey.User?.Username ?? "Unknown"
             };
         }
