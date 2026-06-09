@@ -47,10 +47,11 @@
 }
 
 .nav-brand {
-  font-size: 3rem;
+  font-size: 3.2rem;
   font-weight: bold;
   color: var(--color-primary);
 }
+
 
 
 .nav-user {
@@ -74,16 +75,17 @@
   padding: 0.5rem;
   cursor: pointer;
   border-radius: 12px;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 
 .user-info:hover {
   background-color: #317260;
+  transform: scale(1.05);
 }
 
 .user-avatar {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background-color: #afcec7;
   border-radius: 50%;
   display: flex;
@@ -139,7 +141,9 @@
 }
 
 @media (max-width: 1024px) {
-
+  .nav-brand {
+    font-size: 3.5rem;
+  }
   .user-info {
     flex-direction: row;
   }

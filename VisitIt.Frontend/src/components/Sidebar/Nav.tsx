@@ -19,7 +19,7 @@ const Nav = () => {
                 <div className="nav-header">
                     <Link to="/user" className="home-link">
                     <div className="nav-brand">VisitIt</div>
-                    <p>click me if you're lost!</p>
+                    <p className='underscore'>click me if you're lost!</p>
                     </Link>
                 </div>
             </div>

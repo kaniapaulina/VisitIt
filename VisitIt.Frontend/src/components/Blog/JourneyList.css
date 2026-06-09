@@ -1,12 +1,11 @@
 .journey-list {
-  padding-top: 10px;
 }
 
 .list-header {
   padding: 10px 20px;
   display: flex;
   background-color: #e3eccc;
-  border-radius: 6px;
+  border-radius: 15px;
   justify-content: space-between;
   align-items: center;
 }
@@ -16,12 +15,11 @@
 }
 
 .journey-list h3 {
-  font-size: 1.6rem;
-  color: #333;
+  font-size: 1.4rem;
+  color: #1b1b1b;
 }
 
 .travel-count {
-  font-size: 1.1rem;
   padding: 10px;
   background-color: var(--color-primary);
   border-radius: 10px;
@@ -61,7 +59,6 @@
   flex-direction: column;
   gap: 8px;
   max-height: calc(100vh - 300px);
-  overflow-y: auto;
 }
 
 .journey-item {
@@ -69,12 +66,33 @@
   opacity: 0.5;
   border-radius: 12px;
   transition: all 0.2s;
+  z-index: 1;
+  padding: relative;
+  overflow: hidden;
+}
+
+.journey-item::before {
+  content: '';
+  background-color: rgba(244, 252, 226, 1);
+  z-index: -1;
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  transition: 0.8s;
+}
+
+.journey-item:hover::before {
+  width: 100%;
 }
 
 .journey-item:hover {
-   background-color: rgba(227,236,204, 1);
-  box-shadow: 5px rgba(0, 0, 0, 0.1);
+  background-color: rgba(244, 252, 226, 0.9);
 }
+
+/*.journey-item:hover {
+  background-color: rgba(244, 252, 226, 1);
+  box-shadow: 5px rgba(0, 0, 0, 0.1);
+}*/
 
 .journey-header {
   display: flex;
@@ -95,7 +113,7 @@
 
 .journey-title-section h4 {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #333;
   white-space: nowrap;
   overflow: hidden;
@@ -103,7 +121,7 @@
 }
 
 .journey-location {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: #5a5a5a;
 }
 
