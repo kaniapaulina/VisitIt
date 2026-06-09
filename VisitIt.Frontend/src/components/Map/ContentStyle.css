@@ -1,6 +1,5 @@
 .content {
     flex: 1;
-    background-color: white;
     border-radius: 20px;
     padding: 10px;
 
@@ -12,7 +11,20 @@
  
 .content-map canvas {
   object-fit: contain;
+  border-radius: 20px;
+  /*background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a1a 100%);
+  border-radius: 20px;
+  overflow: hidden;}
+  position: relative;
+  object-fit: contain;
+  background: url('/assets/starysky.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  background-repeat: no-repeat;
+  overflow: hidden;*/
 }
+
 
 @media (max-width: 1024px) {
   .content {

@@ -1,4 +1,5 @@
 .journey-list {
+  max-height: min-content;
 }
 
 .list-header {
