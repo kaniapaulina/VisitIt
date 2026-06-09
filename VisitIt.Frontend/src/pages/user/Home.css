@@ -1,7 +1,13 @@
 @import '../../App.css';
 
 body {
-  background-color: var(--background-color-body);
+  /*background-color: var(--background-color-body);
+  background-image: url(../../../public/assets/pixcloud.webp);
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: repeat-x;*/
+  background-color: rgb(136, 168, 153);
+
 }
 
 .dashboard {
@@ -10,7 +16,7 @@ body {
   grid-template-columns: 20% 80%;
   height: 90vh;
   width: 90%;
-  background-color: var(--color-white);
+  background-color: rgba(255, 255, 255, 0.76);
   border-radius: 24px;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.05);
   margin: 40px auto;
@@ -36,11 +42,11 @@ body {
 }
 
 .map-view {
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.05);
   display: grid;
   grid-template-columns: 60% 39%;
-  gap: 10px;
+  column-gap: 10px;
   width: 100%;
-  height: 100%;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
 }
 
@@ -59,8 +65,8 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  width: 90%;
-  height: 100%;
+  max-width: 80%;
+  height: fit-content;
   transform: translateX(100%);
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 20px;
@@ -77,15 +83,18 @@ body {
 .main-content {
   border-radius: 20px;
   width: 100%;
-  height: 100%;
+  height: 770px;
   overflow: hidden;
-  min-height: 500px;
 }
 
 .right-content {
+  display: flex;
+  flex-direction: column;
   border-radius: 20px;
   width: 100%;
-  min-width: 0;
+  height: 770px;
+  min-height: 400px;
+  gap: 10px;
 }
 
 ::-webkit-scrollbar {
@@ -106,11 +115,24 @@ body {
     flex-shrink: 0;
   }
 
+  .main-block {
+    overflow-y: scroll;
+  }
+
   .map-view {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    min-height: 1000px;
+    min-height: 800px;
+  }
+
+  .main-content {
+    height: 600px;
+    margin-bottom: 10px;
+  }
+
+  .right-content {
+    flex-direction: row;
+    max-height: 400px;
   }
 }
 
@@ -126,17 +148,27 @@ body {
 
   .main-block {
     flex-shrink: 0;
+    overflow: hidden;
   }
 
   .map-view {
-    min-height: 800px;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
+  }
+
+  .main-content {
+    max-height: 510px;
   }
 
   .nav-block {
     height: fit-content;
     margin-right: 0;
     margin-bottom: 10px;
+  }
+
+  .right-content {
+    flex-direction: column;
+    min-height: 730px;
   }
 }
