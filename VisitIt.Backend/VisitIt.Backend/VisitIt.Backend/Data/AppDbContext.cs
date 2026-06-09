@@ -52,14 +52,14 @@ namespace VisitIt.Backend.Data
                 new Journey
                 {
                     Id = 2,
-                    Title = "Test",
-                    Description = "Test",
+                    Title = "Visiting Family",
+                    Description = "It was so nice eating grannys food again! Can't wait to return again <3",
                     StartDate = new DateTime(2025, 01, 01),
                     EndDate = new DateTime(2025, 02, 01),
                     Country = "DEU",
                     Location = "Berlin",
                     DistanceKm = 300,
-                    Notes = "-",
+                    Notes = "Book tickets in advance - flights to Germany are expensive..",
                     UserId = 2
                 }
             );
