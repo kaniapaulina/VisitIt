@@ -1,13 +1,13 @@
 .aside-main {
-  margin-top: 5px;
-  background-color: var(--color-primary-light);
+  background-image: url('../../../public/assets/pixelforest.jpg');
+  background-position: 50% 50%;;
+  background-size: contain;
 
   width: 100%;
-  height: 100%;
   border-radius: 20px;
+  max-height: 470px;
+  height: 470px;
 
-  scroll-behavior: smooth;
-  scroll-padding-top: 100px;
 }
 
 .react-calendar {
@@ -26,4 +26,15 @@
 ::-webkit-scrollbar-thumb {
   background: #1E3A77;
   border-radius: 10px;
+}
+
+@media (max-width: 1500px) {
+  .aside-main {
+    max-height: 400px;
+  }
+}
+@media (max-width: 1024px) {
+  .aside-main {
+    min-height: 400px;
+  }
 }

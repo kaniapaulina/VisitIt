@@ -82,12 +82,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminOnly", policy => policy.RequireRole("admin"));
-    options.AddPolicy("UserOnly", policy => policy.RequireRole("user"));
-});
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact", builder =>
@@ -128,14 +122,14 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    await db.Database.EnsureDeletedAsync();
-    Console.WriteLine("Stara baza usuniêta");
+    //await db.Database.EnsureDeletedAsync();
+    //Console.WriteLine("Stara baza usuniêta");
 
-    await db.Database.EnsureCreatedAsync();
-    Console.WriteLine("Nowa baza stworzona");
+    //await db.Database.EnsureCreatedAsync();
+    //Console.WriteLine("Nowa baza stworzona");
 
-    //await db.Database.MigrateAsync();
-    //Console.WriteLine("Baza zaktualizowana");
+    await db.Database.MigrateAsync();
+    Console.WriteLine("Baza zaktualizowana");
 }
 
 app.Run();

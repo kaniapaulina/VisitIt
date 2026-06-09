@@ -56,7 +56,16 @@ namespace VisitIt.Backend.Services
             {
                 throw new InvalidOperationException("Email already exists");
             }
-                
+
+            if (string.IsNullOrEmpty(registerDto.Password))
+                throw new InvalidOperationException("Password is required");
+
+            if (registerDto.Password.Length < 6)
+                throw new InvalidOperationException("Password must be at least 6 characters");
+
+            if (!registerDto.Password.Any(char.IsDigit))
+                throw new InvalidOperationException("Password must contain at least one number");
+
 
             var user = new User
             {
@@ -64,7 +73,8 @@ namespace VisitIt.Backend.Services
                 Email = registerDto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password),
                 Role = "User",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                IsBanned = false
             };
 
             _context.Users.Add(user);

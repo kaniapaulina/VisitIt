@@ -1,17 +1,39 @@
 .journey-list {
-  padding: 16px;
+}
+
+.list-header {
+  padding: 10px 20px;
+  display: flex;
+  background-color: #e3eccc;
+  border-radius: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-content {
+  padding: 15px;
 }
 
 .journey-list h3 {
-  margin: 0 0 16px 0;
-  font-size: 1.1rem;
-  color: #333;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #e0e0e0;
+  font-size: 1.4rem;
+  color: #1b1b1b;
+}
+
+.travel-count {
+  padding: 10px;
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  transition: all 0.3s;
+}
+
+.travel-count:hover {
+  transform: scale(1.05);
 }
 
 .loading-text {
-  color: #999;
+  color: #ffffff;
   text-align: center;
   padding: 20px;
 }
@@ -20,6 +42,7 @@
   text-align: center;
   padding: 30px 20px;
   color: #999;
+  background-color: var(--background-color-container);
 }
 
 .empty-state p {
@@ -36,25 +59,40 @@
   flex-direction: column;
   gap: 8px;
   max-height: calc(100vh - 300px);
-  overflow-y: auto;
 }
 
 .journey-item {
-  background: white;
-  border: 1px solid #e8e8e8;
+  background-color: rgba(244, 252, 226, 0.9);
+  opacity: 0.5;
   border-radius: 12px;
   transition: all 0.2s;
+  z-index: 1;
+  padding: relative;
+  overflow: hidden;
+}
+
+.journey-item::before {
+  content: '';
+  background-color: rgba(244, 252, 226, 1);
+  z-index: -1;
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  transition: 0.8s;
+}
+
+.journey-item:hover::before {
+  width: 100%;
 }
 
 .journey-item:hover {
-  border-color: #4caf50;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: rgba(244, 252, 226, 0.9);
 }
 
-.journey-item.expanded {
-  border-color: #4caf50;
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.1);
-}
+/*.journey-item:hover {
+  background-color: rgba(244, 252, 226, 1);
+  box-shadow: 5px rgba(0, 0, 0, 0.1);
+}*/
 
 .journey-header {
   display: flex;
@@ -75,7 +113,7 @@
 
 .journey-title-section h4 {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   color: #333;
   white-space: nowrap;
   overflow: hidden;
@@ -83,8 +121,12 @@
 }
 
 .journey-location {
-  font-size: 0.8rem;
-  color: #888;
+  font-size: 0.9rem;
+  color: #5a5a5a;
+}
+
+.journey-date {
+  font-weight: 500;
 }
 
 

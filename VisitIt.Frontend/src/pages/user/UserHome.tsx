@@ -67,7 +67,8 @@ const UserHome = () => {
                 <Nav />
             </div>    
             <div className={`main-block ${viewMode !== 'map' ? 'editing' : ''}`}>
-                {/* Mapa + Aside */}
+
+
                 <div className={`map-view ${viewMode === 'map' ? 'active' : ''}`}>
                     <div className="main-content">
                         <Content onCountryClick={handleCountryClick} />
@@ -76,6 +77,7 @@ const UserHome = () => {
                         <Aside onJourneyClick={handleJourneyClick} />
                     </div>
                 </div>
+
 
                 <div className={`editor-view ${viewMode !== 'map' ? 'active' : ''}`}>
                     {viewMode === 'newJourney' && selectedCountry && (
