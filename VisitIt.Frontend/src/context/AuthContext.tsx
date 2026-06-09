@@ -32,6 +32,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error('Invalid credentials', {cause: error});
     }
   };
+
+  const register = async (username: string, email: string, password: string) => {
+    try {
+        const response = await api.post('/auth/login', { username, email, password });
+        const { token, ...userData } = response.data;
+        
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(userData));
+        setUser(userData);
+    } catch (error: unknown) {
+        console.error('Rejestration failed:', error);
+        throw new Error('Invalid credentials', {cause: error});
+    }
+  };
   
   const logout = () => {
     localStorage.removeItem('token');
@@ -42,6 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const value = {
     user,
     login,
+    register,
     logout,
     isAuthenticated: !!user,
     isAdmin: user?.role?.toLowerCase() === 'admin'
