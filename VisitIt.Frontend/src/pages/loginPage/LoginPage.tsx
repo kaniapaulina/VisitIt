@@ -65,11 +65,21 @@ const LoginPage: React.FC = () => {
             return;
         }
 
+        console.log('Wysyłam rejestrację:', {
+            username: regUsername,
+            email: email,
+            password: regPassword
+        });
+
         setIsLoading(true);
         try {
             await register(regUsername, email, regPassword);
             navigate('/dashboard');
         } catch (err: any) {
+            console.error('Błąd rejestracji:', err);
+            console.error('Response:', err.response);
+            console.error('Status:', err.response?.status);
+            console.error('Data:', err.response?.data);
             setError(err.response?.data?.message || 'Registration failed');
         } finally {
             setIsLoading(false);

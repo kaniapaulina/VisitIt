@@ -52,7 +52,11 @@
   color: var(--color-primary);
 }
 
-
+.underscore {
+  font: var();
+  font-weight: bold;
+  color: var(--color-primary);
+}
 
 .nav-user {
   padding: 0.5rem 1rem;

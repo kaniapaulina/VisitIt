@@ -3,6 +3,7 @@ import Content from '../../components/Map/Content';
 import JourneyEditor from '../../components/Map/JourneyEditor';
 import JourneyView from '../../components/Blog/JourneyView';
 import Aside from '../../components/Blog/Aside';
+import { useJourneys } from '../../hooks/useJourney';
 import './Home.css';
 
 import { useEffect, useState } from 'react';
@@ -34,6 +35,10 @@ const UserHome = () => {
     const [selectedJourney, setSelectedJourney] = useState<Journey | null>(null);
     const [viewMode, setViewMode] = useState<ViewMode>('map');
 
+    const { refreshJourneys } = useJourneys();
+
+    const [refreshKey, setRefreshKey] = useState(0);
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -57,9 +62,20 @@ const UserHome = () => {
         setSelectedJourney(null);
     };
 
+    const handleRefresh = () => {
+        setRefreshKey(prev => prev + 1);
+    }
+
     const handleSaveComplete = () => {
+        handleRefresh();
         handleClose();
     };
+
+    const handleDeleteComplete = () => {
+        handleRefresh(); 
+        handleClose(); 
+    };
+
 
   return (
         <div className="dashboard">
@@ -71,10 +87,12 @@ const UserHome = () => {
 
                 <div className={`map-view ${viewMode === 'map' ? 'active' : ''}`}>
                     <div className="main-content">
-                        <Content onCountryClick={handleCountryClick} />
+                        <Content key={`map-${refreshKey}`}
+                            onCountryClick={handleCountryClick} />
                     </div>
                     <div className="right-content"> 
-                        <Aside onJourneyClick={handleJourneyClick} />
+                        <Aside key={`map-${refreshKey}`} 
+                            onJourneyClick={handleJourneyClick} />
                     </div>
                 </div>
 
@@ -82,6 +100,7 @@ const UserHome = () => {
                 <div className={`editor-view ${viewMode !== 'map' ? 'active' : ''}`}>
                     {viewMode === 'newJourney' && selectedCountry && (
                         <JourneyEditor 
+                            key={`editor-${refreshKey}`}
                             countryName={selectedCountry.name}
                             countryCode={selectedCountry.code}
                             onClose={handleClose}
@@ -90,8 +109,10 @@ const UserHome = () => {
                     )}
                     {viewMode === 'viewJourney' && selectedJourney && (
                         <JourneyView 
+                            key={`editor-${refreshKey}`}
                             journey={selectedJourney}
                             onClose={handleClose}
+                            onDelete={handleDeleteComplete}
                         />
             )}
                 </div>

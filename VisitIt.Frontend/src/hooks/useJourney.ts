@@ -33,6 +33,13 @@ export const useJourneys = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const token = localStorage.getItem('token');
+  if (!token) {
+    setLoading(false);
+    return;
+  }
+
+
   const fetchJourneys = useCallback(async () => {
     try {
       setLoading(true);
@@ -54,7 +61,6 @@ export const useJourneys = () => {
       return response.data;
     } catch (err: any) {
       console.error('Error creating journey:', err);
-      throw new Error(err.response?.data?.message || 'Failed to create journey');
     }
   }, []);
 
@@ -64,7 +70,6 @@ export const useJourneys = () => {
       setJourneys(prev => prev.map(j => j.id === id ? { ...j, ...data } : j));
     } catch (err: any) {
       console.error('Error updating journey:', err);
-      throw new Error(err.response?.data?.message || 'Failed to update journey');
     }
   }, []);
 
@@ -74,7 +79,6 @@ export const useJourneys = () => {
       setJourneys(prev => prev.filter(j => j.id !== id));
     } catch (err: any) {
       console.error('Error deleting journey:', err);
-      throw new Error(err.response?.data?.message || 'Failed to delete journey');
     }
   }, []);
 

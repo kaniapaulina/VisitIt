@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './JourneyView.css';
+import { useJourneys } from '../../hooks/useJourney';  
 
 interface Journey {
   id: number;
@@ -17,15 +18,42 @@ interface Journey {
 interface JourneyViewProps {
   journey: Journey;
   onClose: () => void;
+  onDelete?: () => void;
 }
 
-const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose }) => {
+const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose, onDelete }) => {
+  const { deleteJourney } = useJourneys();
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
   const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('pl-PL', {
+    return new Date(date).toLocaleDateString('en-EN', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
+  };
+
+  const handleDelete = async (e: React.MouseEvent, id: number) => {
+    e.stopPropagation();
+    
+    if (!window.confirm('Are you sure you want to delete this journey?')) {
+      return;
+    }
+
+    setDeletingId(id);
+    try {
+      await deleteJourney(id);
+      onDelete?.();
+    } catch (error) {
+      alert('Failed to delete journey');
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  const getRating = (description: string): number => {
+    const match = description?.match(/Rating: (\d)\/5/);
+    return match ? parseInt(match[1]) : 0;
   };
 
   return (
@@ -37,6 +65,15 @@ const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose }) => {
         <div className="header-country">
           <h1>{journey.title}</h1>
         </div>
+
+        <div className="header-rating">
+          <span className="stars-display">
+            {getRating(journey.description) > 0 
+              ? '★'.repeat(getRating(journey.description)) + '☆'.repeat(5 - getRating(journey.description))
+              : 'No rating'}
+          </span>
+        </div>
+
       </header>
 
       <div className="view-content">
@@ -71,7 +108,7 @@ const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose }) => {
         <div className="view-description">
           <h2>My history</h2>
           <div className="description-text">
-            {journey.description}
+            {journey.description?.replace(/Rating: \d\/5\n\n/, '') || 'No description'}
           </div>
         </div>
 
@@ -84,6 +121,15 @@ const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose }) => {
           </div>
         )}
       </div>
+        <div className="view-actions">
+          <button 
+            className="delete-journey-btn"
+            onClick={(e) => handleDelete(e, journey.id)}
+            disabled={deletingId === journey.id}
+          >
+            {deletingId === journey.id ? 'Deleting...' : 'Delete this journey'}
+          </button>
+        </div>
     </div>
   );
 };

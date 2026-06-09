@@ -17,7 +17,7 @@ interface Journey {
 }
 
 interface JourneyListProps {
-  onJourneyClick: (journey: Journey) => void;  // Przekazuje do UserHome
+  onJourneyClick: (journey: Journey) => void; 
 }
 
 const JourneyList: React.FC<JourneyListProps> = ({ onJourneyClick }) => {
@@ -39,7 +39,6 @@ const JourneyList: React.FC<JourneyListProps> = ({ onJourneyClick }) => {
   if (loading) {
     return (
       <div className="journey-list">
-        <h3>Your Journeys</h3>
       </div>
     );
   }

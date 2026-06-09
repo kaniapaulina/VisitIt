@@ -10,6 +10,7 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
+    console.log('DEBUG Request:', config.method?.toUpperCase(), config.url, config.data);
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -21,8 +22,17 @@ api.interceptors.request.use((config) => {
 );
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+        console.log('✅ Response:', response.status, response.data);
+        return response;
+    },
   (error) => {
+    console.error('❌ Error:', {
+          status: error.response?.status,
+          data: error.response?.data,
+          url: error.config?.url
+      });
+
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       window.location.href = '/login';

@@ -15,7 +15,7 @@ const JourneyEditor: React.FC<JourneyEditorProps> = ({
   onClose,
   onSave 
 }) => {
-  const { createJourney } = useJourneys();
+  const { createJourney, refreshJourneys } = useJourneys();
   
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
@@ -26,8 +26,8 @@ const JourneyEditor: React.FC<JourneyEditorProps> = ({
   const [distanceKm, setDistanceKm] = useState(0);
   const [isSaving, setIsSaving] = useState(false);
 
-  const [rating, setRating] = useState(0);           // Ocena 0-5
-  const [hoverRating, setHoverRating] = useState(0); // Hover efekt
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
 
   const handleSave = async () => {
     if (!title.trim() || !location.trim()) {
@@ -48,7 +48,7 @@ const JourneyEditor: React.FC<JourneyEditorProps> = ({
         notes,
         status: 'published'
       });
-      
+      refreshJourneys();
       onSave?.();
       onClose();
     } catch (error) {

@@ -8,10 +8,14 @@
   animation: fadeIn 0.3s ease-out;
 
   border-radius: 20px;
+  width: 800px;
+
+  padding-bottom: 30px;
 }
 
 .view-header {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 16px 32px;
@@ -25,6 +29,7 @@
   background: none;
   border: 1px solid #ddd;
   padding: 8px 16px;
+  margin-bottom: 15px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 0.9rem;
@@ -159,6 +164,46 @@
   animation: fadeIn 0.5s ease-out 0.55s both;
 }
 
+.header-rating {
+  display: flex;
+  align-items: center;
+}
+
+.stars-display {
+  color: #FFD700;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.view-actions {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+}
+
+.delete-journey-btn {
+  padding: 12px 24px;
+  background: #FFEBEE;
+  color: #c62828;
+  border: 1px solid #FFCDD2;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.delete-journey-btn:hover {
+  background: #FFCDD2;
+}
+
+.delete-journey-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
 @keyframes slideInLeft {
   from {
     opacity: 0;
@@ -176,5 +221,21 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media (max-width: 1500px) {
+  .journey-view {
+    width: 600px;
+  }
+}
+
+@media (max-width: 700px) {
+  .journey-view {
+    width: 400px;
+  }
+
+  .view-header {
+    flex-direction: column;
   }
 }
