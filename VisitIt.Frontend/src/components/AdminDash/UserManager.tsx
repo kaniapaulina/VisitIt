@@ -117,7 +117,14 @@ export default function UserManager() {
     <>
         <div className={styles.userCard}>
           <h3>{foundUser.username}</h3>
-          <p>Status: {foundUser.isBanned ? '🔴 Banned' : '🟢 Active'}</p>
+          <p className={styles.userStats}>
+            Total visits: <strong>{userPosts.length}</strong>
+          </p>
+          <p className={styles.userStatus}>
+            Status: <span className={foundUser.isBanned ? styles.statusBanned : styles.statusActive}>
+              {foundUser.isBanned ? '🔴 Banned' : '🟢 Active'}
+            </span>
+          </p>
           <button 
             onClick={() => handleBan(foundUser.id)}
             className={foundUser.isBanned ? styles.unbanButton : styles.banButton}

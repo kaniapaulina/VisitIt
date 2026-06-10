@@ -274,5 +274,24 @@ namespace VisitIt.Backend.Controllers
 
             return NoContent();
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("analytics")]
+        public async Task<ActionResult> GetAnalytics()
+        {
+            var journeys = await _context.Journeys.ToListAsync();
+
+            var stats = journeys
+                .GroupBy(j => j.Country)
+                .Select(g => new {
+                    Name = g.Key,
+                    Rating = Math.Round(g.Average(j => j.Rating), 1),
+                    Visits = g.Count()
+                })
+                .ToList();
+
+            return Ok(stats);
+        }
+
     }
 }
