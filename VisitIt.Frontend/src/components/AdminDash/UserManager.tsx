@@ -20,7 +20,7 @@ export default function UserManager() {
       headers: getAuthHeaders()
     })
       .then(res => {
-        if (!res.ok) throw new Error('Błąd autoryzacji lub serwera');
+        if (!res.ok) throw new Error('Server authorization error');
         return res.json();
       })
       .then(data => setUsers(data))
