@@ -38,7 +38,7 @@ body {
   border-radius: 20px;
   height: 99%;
   width: 100%;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .map-view {

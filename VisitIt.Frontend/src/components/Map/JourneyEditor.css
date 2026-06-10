@@ -4,6 +4,7 @@
   flex-direction: column;
   background: var(--color-primary-light);
   border-radius: 20px;
+  overflow: scroll;
 }
 
 .editor-header {

@@ -20,10 +20,28 @@
   border-radius: 8px;
 }
 
+/* Calendar.css */
 .visited-day {
-  background-color: #1E3A77 !important;
-  color: white !important;
-  border-radius: 8px !important;
+    background-color: #2E7D32 !important;
+    color: white !important;
+    border-radius: 8px !important;
+    position: relative;
+}
+
+.visited-day::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+}
+
+.visited-day.multiple {
+    background-color: #FF9800 !important;
 }
 
 .react-calendar__navigation button {
