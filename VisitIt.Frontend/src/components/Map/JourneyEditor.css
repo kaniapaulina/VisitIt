@@ -52,26 +52,51 @@
   font-size: 1.8rem;
 }
 
-.save-button {
-  background: var(--color-visited);
-  color: white;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s;
+.header-actions {
+    display: flex;
+    gap: 10px;
 }
 
-.save-button:hover:not(:disabled) {
+.finish-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.finish-button:hover {
+    background: #388E3C;
+}
+
+.save-section {
+    margin-top: 24px;
+}
+
+.save-button-full {
+    width: 100%;
+    padding: 14px;
+    background: var(--color-visited);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-button-full:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.save-button-full:hover:not(:disabled) {
   background: #1B5E20;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
-}
-
-.save-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .editor-content-full {
@@ -237,6 +262,23 @@
 .notes-textarea:focus {
   outline: none;
   border-color: var(--color-error-border);
+}
+
+.char-count {
+    display: block;
+    text-align: right;
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 4px;
+}
+
+.char-count.near-limit {
+    color: #FF9800;
+}
+
+.char-count.at-limit {
+    color: #f44336;
+    font-weight: 600;
 }
 
 @media (max-width: 1024px) {

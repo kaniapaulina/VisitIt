@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useJourneys } from '../../hooks/useJourney';
 import './JourneyList.css';
 
@@ -23,6 +23,12 @@ interface JourneyListProps {
 const JourneyList: React.FC<JourneyListProps> = ({ onJourneyClick }) => {
   const { journeys, loading } = useJourneys();
   const [expandedId, setExpandedId] = useState<number | null>(null);
+
+
+// DODAJ:
+useEffect(() => {
+    console.log('🗺️ Content - journeys:', journeys?.length);
+}, [journeys]);
 
   const toggleExpand = (id: number) => {
     setExpandedId(expandedId === id ? null : id);

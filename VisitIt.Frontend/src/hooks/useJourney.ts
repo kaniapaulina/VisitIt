@@ -1,6 +1,7 @@
-// src/hooks/useJourneys.ts
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import api from '../services/api';
+
+console.log('api baseURL:', api.defaults.baseURL);
 
 interface Journey {
   id: number;
@@ -14,6 +15,7 @@ interface Journey {
   notes: string;
   status: string;
   userName?: string;
+  images?: string;
 }
 
 interface CreateJourneyData {
@@ -36,19 +38,26 @@ export const useJourneys = () => {
   const token = localStorage.getItem('token');
   if (!token) {
     setLoading(false);
-    return;
   }
 
 
   const fetchJourneys = useCallback(async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
       const response = await api.get<Journey[]>('/Journeys');
       setJourneys(response.data);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to fetch journeys');
-      console.error('Error fetching journeys:', err);
+      console.error('Error fetching journeys:', err); //DEBUG
+      if (err.response?.status !== 401) {
+        setError(err.response?.data?.message || 'Failed to fetch journeys');
+      }
     } finally {
       setLoading(false);
     }
@@ -57,10 +66,12 @@ export const useJourneys = () => {
   const createJourney = useCallback(async (data: CreateJourneyData) => {
     try {
       const response = await api.post<Journey>('/Journeys', data);
+      console.log('✅ API response:', response.data);  // DEBUG
       setJourneys(prev => [response.data, ...prev]);
       return response.data;
     } catch (err: any) {
       console.error('Error creating journey:', err);
+      throw err;
     }
   }, []);
 
@@ -82,7 +93,7 @@ export const useJourneys = () => {
     }
   }, []);
 
-  useEffect(() => {
+    useEffect(() => {
     fetchJourneys();
   }, [fetchJourneys]);
 

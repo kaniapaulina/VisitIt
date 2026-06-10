@@ -51,11 +51,11 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
+})
+.AddJwtBearer(options =>
+{
     options.SaveToken = true;
-    options.RequireHttpsMetadata = false; // Set to true in production
+    options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -84,18 +84,13 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReact", builder =>
+    options.AddPolicy("AllowAll", builder =>
     {
-        builder.WithOrigins("http://localhost:5173")
+        builder.AllowAnyOrigin()
                .AllowAnyMethod()
-               .AllowAnyHeader()
-               .AllowCredentials();
+               .AllowAnyHeader();
     });
 });
-
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-builder.Logging.AddDebug();
 
 var app = builder.Build();
 
@@ -109,27 +104,28 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); 
 
-app.UseCors("AllowReact");
+app.UseStaticFiles();
 
-app.UseAuthentication(); 
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    //await db.Database.EnsureDeletedAsync();
-    //Console.WriteLine("Stara baza usuniêta");
+    await db.Database.EnsureDeletedAsync();
+    Console.WriteLine("Stara baza usuniêta");
 
-    //await db.Database.EnsureCreatedAsync();
-    //Console.WriteLine("Nowa baza stworzona");
+    await db.Database.EnsureCreatedAsync();
+    Console.WriteLine("Nowa baza stworzona");
 
-    await db.Database.MigrateAsync();
-    Console.WriteLine("Baza zaktualizowana");
+    //await db.Database.MigrateAsync();
+    //Console.WriteLine("Baza zaktualizowana");
 }
 
 app.Run();

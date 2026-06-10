@@ -11,6 +11,7 @@
         public string Location { get; set; }
         public int DistanceKm { get; set; }
         public string Notes { get; set; }
+        public string? ImagePaths { get; set; }
 
         // Foreign keys
         public int UserId { get; set; }

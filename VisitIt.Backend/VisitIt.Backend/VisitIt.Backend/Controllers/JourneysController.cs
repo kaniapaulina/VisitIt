@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Text.Json;
 using VisitIt.Backend.Data;
 using VisitIt.Backend.DTO;
 using VisitIt.Backend.Models;
@@ -20,7 +21,7 @@ namespace VisitIt.Backend.Controllers
             _context = context;
         }
 
-        private int GetUserId()
+        private int GetUserId() 
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
 
@@ -178,6 +179,71 @@ namespace VisitIt.Backend.Controllers
                 Notes = journey.Notes,
                 UserName = journey.User?.Username ?? "Unknown"
             };
+        }
+
+
+
+        [HttpPost("upload/{journeyId}")]
+        public async Task<IActionResult> UploadImages(int journeyId, [FromForm] List<IFormFile> files)
+        {
+            var userId = GetUserId();
+
+            var journey = await _context.Journeys
+                .FirstOrDefaultAsync(j => j.Id == journeyId && j.UserId == userId);
+
+            if (journey == null)
+                return NotFound();
+
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+                Console.WriteLine($"Stworzono folder: {uploadsFolder}");
+            }
+
+            var imagePaths = new List<string>();
+
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    var fileName = $"{Guid.NewGuid()}_{file.FileName}";
+                    var filePath = Path.Combine("wwwroot", "uploads", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    imagePaths.Add($"/uploads/{fileName}");
+                    Console.WriteLine($"Zapisano: {fileName}");
+                }
+            }
+
+            var existingImages = string.IsNullOrEmpty(journey.ImagePaths)
+                ? new List<string>()
+                : JsonSerializer.Deserialize<List<string>>(journey.ImagePaths);
+
+            existingImages.AddRange(imagePaths);
+            journey.ImagePaths = JsonSerializer.Serialize(existingImages);
+
+            await _context.SaveChangesAsync();
+
+            Console.WriteLine($"📷 Dodano {imagePaths.Count} zdjęć. Łącznie: {existingImages.Count}");
+
+            return Ok(new { images = imagePaths, total = existingImages.Count });
+        }
+
+        [HttpGet("images/{journeyId}")]
+        public async Task<IActionResult> GetImages(int journeyId)
+        {
+            var journey = await _context.Journeys.FindAsync(journeyId);
+
+            if (journey == null || string.IsNullOrEmpty(journey.ImagePaths))
+                return Ok(new List<string>());
+
+            var images = System.Text.Json.JsonSerializer.Deserialize<List<string>>(journey.ImagePaths);
+            return Ok(images);
         }
     }
 }

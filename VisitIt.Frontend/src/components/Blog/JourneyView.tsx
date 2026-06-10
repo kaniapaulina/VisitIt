@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './JourneyView.css';
 import { useJourneys } from '../../hooks/useJourney';  
+import api from '../../services/api';
 
 interface Journey {
   id: number;
@@ -25,6 +26,25 @@ const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose, onDelete })
   const { deleteJourney } = useJourneys();
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
+  const [images, setImages] = useState<string[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+    try {
+      const response = await api.get(`/Journeys/images/${journey.id}`);
+      const API_URL = 'https://localhost:7201';
+      const imagesWithFullUrl = (response.data || []).map((img: string) => 
+          img.startsWith('http') ? img : `${API_URL}${img}`
+      );
+      setImages(imagesWithFullUrl);
+    } catch (error) {
+      console.error('Failed to fetch images:', error);
+    }
+  };
+    fetchImages();
+  }, [journey.id]);
+
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('en-EN', {
       year: 'numeric',
@@ -40,13 +60,21 @@ const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose, onDelete })
       return;
     }
 
+    console.log('TEST DELETE - journey.id:', id); //DEBUG
+    
+    const token = localStorage.getItem('token');
+    console.log('Token:', token ? 'JEST' : 'BRAK'); //DEBUG
+
     setDeletingId(id);
     try {
       await deleteJourney(id);
+      console.log('Deleted successfully'); //DEBUG
       onDelete?.();
-    } catch (error) {
+    } 
+    catch (error) {
       alert('Failed to delete journey');
-    } finally {
+    } 
+    finally {
       setDeletingId(null);
     }
   };
@@ -55,6 +83,7 @@ const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose, onDelete })
     const match = description?.match(/Rating: (\d)\/5/);
     return match ? parseInt(match[1]) : 0;
   };
+
 
   return (
     <div className="journey-view">
@@ -112,6 +141,23 @@ const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose, onDelete })
           </div>
         </div>
 
+        {images.length > 0 && (
+          <div className="view-gallery">
+            <h2>Photos ({images.length})</h2>
+            <div className="gallery-grid">
+              {images.map((img, index) => (
+                <div 
+                  key={index} 
+                  className="gallery-item"
+                  onClick={() => setSelectedImage(img)}
+                >
+                  <img src={img} alt={`Journey photo ${index + 1}`} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {journey.notes && (
           <div className="view-notes">
             <h2>Notes</h2>
@@ -120,6 +166,7 @@ const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose, onDelete })
             </div>
           </div>
         )}
+
       </div>
         <div className="view-actions">
           <button 
@@ -130,6 +177,14 @@ const JourneyView: React.FC<JourneyViewProps> = ({ journey, onClose, onDelete })
             {deletingId === journey.id ? 'Deleting...' : 'Delete this journey'}
           </button>
         </div>
+
+       {selectedImage && (
+        <div className="lightbox" onClick={() => setSelectedImage(null)}>
+          <button className="lightbox-close">✕</button>
+          <img src={selectedImage} alt="Full size" />
+        </div>
+      )}
+
     </div>
   );
 };

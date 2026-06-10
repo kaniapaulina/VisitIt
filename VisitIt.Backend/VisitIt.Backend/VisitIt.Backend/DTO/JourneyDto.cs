@@ -10,6 +10,7 @@
         public string Location { get; set; }
         public int DistanceKm { get; set; }
         public string Notes { get; set; }
+        public List<string>? Images { get; set; }
     }
 
     public class JourneyResponseDto
@@ -24,5 +25,6 @@
         public int DistanceKm { get; set; }
         public string Notes { get; set; }
         public string UserName { get; set; } = string.Empty;
+        public List<string>? Images { get; set; }
     }
 }
