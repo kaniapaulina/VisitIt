@@ -1,5 +1,5 @@
 .aside-main {
-  background-image: url('../../../public/assets/pixelforest.jpg');
+  background-image: url('/assets/pixelforest.jpg');
   background-position: 50% 50%;;
   background-size: contain;
 

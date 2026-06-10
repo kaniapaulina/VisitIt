@@ -35,7 +35,6 @@ function Aside({ onJourneyClick }: AsideProps) {
             
             if (journey.endDate) {
                 const end = new Date(journey.endDate);
-                // Dodaj wszystkie dni między start a end
                 const current = new Date(start);
                 while (current <= end) {
                     dates.push(new Date(current));

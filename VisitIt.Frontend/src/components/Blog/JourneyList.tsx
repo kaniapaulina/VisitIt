@@ -59,7 +59,7 @@ useEffect(() => {
         {journeys.length === 0 ? (
           <div className="empty-state">
             <p>Nothing visited yet</p>
-            <p className="hint">Click on a country to mark a past endeavour!</p>
+            <p className="hint">Click on a country to mark an endeavour!</p>
           </div>
         ) : (
           <div className="journey-items">

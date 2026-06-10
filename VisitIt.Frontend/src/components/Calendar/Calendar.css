@@ -16,13 +16,12 @@
 }
 
 .react-calendar__tile--now {
-  background: #D5E5E5 !important; 
+  background: rgba(92, 160, 120, 0.5); 
   border-radius: 8px;
 }
 
-/* Calendar.css */
 .visited-day {
-    background-color: #2E7D32 !important;
+    background-color: rgba(92, 160, 120, 1);
     color: white !important;
     border-radius: 8px !important;
     position: relative;
@@ -40,22 +39,24 @@
     border-radius: 50%;
 }
 
-.visited-day.multiple {
-    background-color: #FF9800 !important;
-}
 
 .react-calendar__navigation button {
-  color: #1E3A77;
+  font-size: 1.2rem;
   font-weight: bold;
+  color: var(--color-primary);
 }
 
 
 .react-calendar__tile {
   border-radius: 8px;
-  padding: 10px 0;
+  padding: 10px 2px;
 }
 
 .react-calendar__tile:hover {
-  background-color: #f0f0f0 !important;
+  background-color: #f0f0f0;
   border-radius: 8px;
+}
+
+.visited-day:hover {
+  background-color: var(--color-primary);
 }

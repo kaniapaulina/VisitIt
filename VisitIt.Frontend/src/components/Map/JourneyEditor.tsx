@@ -119,9 +119,12 @@ const JourneyEditor: React.FC<JourneyEditorProps> = ({
 
         <span className={getCharCountClass(title.length, LIMITS.title)}>{title.length}/{LIMITS.title}</span>
 
+        <br/>
+
         <div className="meta-row">
           <div className="meta-item">
-            <label>Place Visited</label>
+            <label className='place-visited'>Place Visited 
+            </label>
             <input type="text" 
             value={location} onChange={(e) => {
               if (e.target.value.length <= LIMITS.location) {
@@ -130,8 +133,9 @@ const JourneyEditor: React.FC<JourneyEditorProps> = ({
             }}
             placeholder="Cities.."
             maxLength={LIMITS.location} disabled={!!journeyId}/>
+
+            <span className={getCharCountClass(location.length, LIMITS.title)}>{location.length}/{LIMITS.location}</span>
           </div>
-          <span className={getCharCountClass(location.length, LIMITS.title)}>{location.length}/{LIMITS.location}</span>
 
           <div className="meta-item">
             <label>From</label>

@@ -166,7 +166,7 @@ function Content({ onCountryClick }: ContentProps) {
                         width={dimensions.width}
                         height={dimensions.height}
                         onGlobeReady={handleGlobeReady}
-                        globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
+                        globeImageUrl="/assets/1_earth_8k.jpg"
                         backgroundImageUrl={undefined}
                         backgroundColor='#d7ecd3'
                         polygonsData={polygonFeatures}

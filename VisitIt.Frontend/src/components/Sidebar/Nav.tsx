@@ -17,13 +17,25 @@ const Nav = () => {
         <nav className="navbar">
             <div className='nav-header-wrapper'>
                 <div className="nav-header">
-                    <Link to="/user" className="home-link">
+                    <Link to="/dashboard" className="home-link">
                     <div className="nav-brand">VisitIt</div>
                     <p className='underscore'>click me if you're lost!</p>
                     </Link>
                 </div>
             </div>
-            
+
+            <div className='nav-menu'>
+                <div className='menu-link'>
+                    <Link to='/dashboard' className='link'>FYP</Link>
+                </div>
+                <div className='menu-link'>
+                    <Link to='/dashboard' className='link'>Newsletter</Link>
+                </div>
+                <div className='menu-link'>
+                    <Link to='/dashboard' className='link'>Friendhub</Link>
+                </div>
+            </div>
+
         
 
             <div className="nav-footer">
@@ -32,7 +44,7 @@ const Nav = () => {
                         <div className="user-avatar"></div>
                         <div className="user-details">
                             <strong>{user?.username}</strong>
-                            <p>Visit Profile</p>
+                            <p>Settings</p>
                         </div>
                     </div>
                 </Link>
