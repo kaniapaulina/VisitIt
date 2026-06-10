@@ -245,5 +245,34 @@ namespace VisitIt.Backend.Controllers
             var images = System.Text.Json.JsonSerializer.Deserialize<List<string>>(journey.ImagePaths);
             return Ok(images);
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<JourneyResponseDto>>> GetJourneysByUserId(int userId)
+        {
+            var journeys = await _context.Journeys
+                .Where(j => j.UserId == userId)
+                .Include(j => j.User) 
+                .OrderByDescending(j => j.StartDate)
+                .Select(j => MapToDto(j))
+                .ToListAsync();
+
+            return Ok(journeys);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("admin-delete/{journeyId}")]
+        public async Task<IActionResult> AdminDeleteJourney(int journeyId)
+        {
+            var journey = await _context.Journeys.FindAsync(journeyId);
+
+            if (journey == null)
+                return NotFound("Post not found.");
+
+            _context.Journeys.Remove(journey);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
