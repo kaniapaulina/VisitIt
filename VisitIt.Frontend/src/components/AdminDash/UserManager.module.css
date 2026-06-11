@@ -9,7 +9,7 @@
 .resultsArea {
   flex-grow: 1;
   min-height: 0; 
-  border: 2px solid #ddd;
+  border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
   background: #fff;
@@ -36,7 +36,7 @@
   align-items: center;
   margin-bottom: 10px;
   padding: 5px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid #ddd;
 }
 
 .banButton {
@@ -48,6 +48,19 @@
   cursor: pointer;
    font-weight: 600;
   transition: background 0.3s;
+}
+
+.deleteButton {
+  background-color: #87281d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+  align-self: flex-end; 
+  width: auto;
 }
 
 .unbanButton {
@@ -78,4 +91,70 @@
   border-radius: 12px;
   width: 100%;
   gap: 20px;
+}
+
+ .postsContainer {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 12px;    
+  width: 100%;
+  background-color: #fafafa; 
+}
+
+.postsList {
+  max-height: 300px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.postItem {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  gap: 10px; 
+  align-items: stretch;
+}
+
+.postHeader {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+}
+
+.postTitle {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.postDetails {
+  display: flex;
+  flex-direction: column; 
+  gap: 5px;
+}
+
+.postDescription {
+  color: #555;
+  font-size: 0.95rem;   
+  align-items: flex-start; 
+  text-align: left;     
+}
+
+.userStatus {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.userStats {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.userCount {
+  font-weight: bold;
+  font-size: 1.2rem;
 }

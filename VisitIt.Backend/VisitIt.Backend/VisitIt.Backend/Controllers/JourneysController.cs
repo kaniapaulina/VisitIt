@@ -245,5 +245,53 @@ namespace VisitIt.Backend.Controllers
             var images = System.Text.Json.JsonSerializer.Deserialize<List<string>>(journey.ImagePaths);
             return Ok(images);
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<JourneyResponseDto>>> GetJourneysByUserId(int userId)
+        {
+            var journeys = await _context.Journeys
+                .Where(j => j.UserId == userId)
+                .Include(j => j.User) 
+                .OrderByDescending(j => j.StartDate)
+                .Select(j => MapToDto(j))
+                .ToListAsync();
+
+            return Ok(journeys);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("admin-delete/{journeyId}")]
+        public async Task<IActionResult> AdminDeleteJourney(int journeyId)
+        {
+            var journey = await _context.Journeys.FindAsync(journeyId);
+
+            if (journey == null)
+                return NotFound("Post not found.");
+
+            _context.Journeys.Remove(journey);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("analytics")]
+        public async Task<ActionResult> GetAnalytics()
+        {
+            var journeys = await _context.Journeys.ToListAsync();
+
+            var stats = journeys
+                .GroupBy(j => j.Country)
+                .Select(g => new {
+                    Name = g.Key,
+                    Rating = Math.Round(g.Average(j => j.Rating), 1),
+                    Visits = g.Count()
+                })
+                .ToList();
+
+            return Ok(stats);
+        }
+
     }
 }
